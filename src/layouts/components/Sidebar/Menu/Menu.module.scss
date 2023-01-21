@@ -1,0 +1,39 @@
+.wrapper {
+}
+
+// Menu item css
+
+.menu-item-wrapper {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.8rem;
+    padding: 8px;
+    color: var(--text-color);
+    border-radius: 4px;
+    transition: background-color ease-in-out 200ms;
+    &:hover {
+        background-color: var(--hover-bg);
+    }
+
+    &.active {
+        color: var(--primary-color);
+        background-color: var(--hover-bg);
+    }
+}
+
+.title {
+    margin-left: 8px;
+}
+@media screen and (max-width: 1160px) {
+    .title {
+        margin: 0;
+        display: none;
+    }
+    .menu-item-wrapper {
+        justify-content: center;
+        &.active {
+            background-color: var(--bg-color);
+        }
+    }
+}

@@ -1,0 +1,20 @@
+.wrapper {
+    height: 30px;
+    width: 80px;
+    transform: rotate(-90deg) translateY(125%) translateX(-80%);
+    transform-origin: left 0;
+    background-color: #16182357;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.medium {
+        transform: rotate(-90deg) translateY(104%) translateX(-80%);
+    }
+}
+
+.volume-input {
+    height: 4px;
+    width: 80%;
+    cursor: pointer;
+}

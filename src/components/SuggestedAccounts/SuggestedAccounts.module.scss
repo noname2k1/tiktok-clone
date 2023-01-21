@@ -1,0 +1,77 @@
+.wrapper {
+    color: var(--light-color);
+    border-top: 1px solid var(--border-color);
+}
+
+.label {
+    padding: 8px;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.empty {
+    padding-left: 8px;
+}
+
+.see-label {
+    color: var(--primary-color);
+    font-family: ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    cursor: pointer;
+}
+
+// Account item
+.account-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 3px;
+    border-radius: 4px;
+    transition: background-color 200ms ease-in-out 0s;
+    &:hover {
+        background-color: var(--hover-bg);
+    }
+}
+.avatar {
+    width: 32px;
+    height: 32px;
+    margin-right: 12px;
+    margin-left: 6px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.info {
+    flex: 1;
+}
+.nickname {
+    display: flex;
+    align-items: center;
+    font-family: SofiaPro, Arial, Tahoma, PingFangSC, sans-serif;
+    font-size: 1.6rem;
+    color: var(--nickname-color);
+}
+.check {
+    margin-left: 4px;
+}
+.name {
+    font-size: 1.2rem;
+}
+
+@media screen and (max-width: 1160px) {
+    .label,
+    .info,
+    .empty,
+    .see-label {
+        display: none;
+    }
+    .account-item {
+        justify-content: center;
+        padding: 8px;
+    }
+    .avatar {
+        margin-right: 0;
+        margin-left: 0;
+    }
+}

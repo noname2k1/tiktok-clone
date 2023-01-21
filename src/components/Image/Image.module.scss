@@ -1,0 +1,23 @@
+.wrapper {
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.rounded {
+    border-radius: 50%;
+}
+
+.small {
+    width: 32px !important;
+    height: 32px !important;
+}
+
+.medium {
+    width: 44px !important;
+    height: 44px !important;
+}
+
+.large {
+    width: 56px !important;
+    height: 56px !important;
+}

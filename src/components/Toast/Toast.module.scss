@@ -1,0 +1,45 @@
+.wrapper {
+    text-align: center;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0);
+}
+
+.top {
+    position: fixed;
+    &.appear {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(50%);
+        transition: all ease-in 0.3s;
+    }
+    &.disappear {
+        animation: disappear 0.4s ease;
+    }
+}
+
+.toast-container {
+    background-color: rgba(84, 84, 84, 0.92);
+    border-radius: 2px;
+    padding: 8px 16px;
+    width: 50vw;
+    color: #fff;
+}
+
+@keyframes disappear {
+    0% {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(50%);
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(0);
+    }
+}

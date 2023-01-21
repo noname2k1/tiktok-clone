@@ -1,0 +1,17 @@
+.wrapper {
+    width: var(--sidebar-width, 356px);
+    padding: 20px 0 26px 0;
+    background-color: var(--bg-color);
+    position: sticky;
+    left: 0;
+    top: var(--default-layout-header-height);
+    height: calc(100vh - var(--default-layout-header-height));
+    overflow-y: auto;
+    z-index: 2;
+    @media screen and (max-width: 1160px) {
+        width: var(--mobile-sidebar-width, 55px);
+        margin-left: 8px;
+        margin-right: 8px;
+        overflow: hidden;
+    }
+}

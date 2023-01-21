@@ -1,0 +1,99 @@
+.search {
+    position: relative;
+    height: var(--search-height, 46px);
+    padding-left: 12px;
+    background-color: rgba(22, 24, 35, 0.06);
+    border-radius: 92px;
+    display: flex;
+    overflow: hidden;
+    border: 1.5px solid transparent;
+    &::after {
+        content: '';
+        position: absolute;
+        top: var(--search-separator-top);
+        right: var(--search-btn-width, 52px);
+        width: 1px;
+        height: calc(var(--search-height) - 2 * var(--search-separator-top));
+        background: rgba(22, 24, 35, 0.06);
+        border-radius: 92px;
+        z-index: 1;
+    }
+
+    input {
+        background: transparent;
+        flex: 1;
+        height: 100%;
+        caret-color: var(--primary-color, #fe2c55);
+        line-height: 22px;
+        color: var(--text-color, #000);
+        font-size: 16px;
+    }
+
+    input:not(:placeholder-shown) ~ .search-btn {
+        color: rgba(22, 24, 35, 0.75);
+    }
+    &:focus-within:has(input:focus) {
+        border-color: var(--search-btn-icon-bg);
+    }
+}
+
+.search-title {
+    padding: 5px 12px;
+    font-size: 14px;
+    color: rgba(22, 24, 35, 0.5);
+}
+
+.search,
+.search-result {
+    font-family: var(--font-family);
+    width: 361px;
+}
+.pending {
+    position: relative;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clear {
+    cursor: pointer;
+}
+
+.clear,
+.loading {
+    color: var(--search-btn-icon-bg);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.search-btn {
+    width: var(--search-btn-width, 52px);
+    height: 100%;
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--search-btn-icon-bg);
+    &:hover {
+        background: var(--hover-bg, rgba(22, 24, 35, 0.03));
+    }
+    &:active {
+        background: rgba(22, 24, 35, 0.06);
+    }
+    &.active {
+        color: rgba(22, 24, 35, 0.06);
+    }
+}
+
+.search-loading-icon {
+    // animation: name duration timing-function delay iteration-count direction fill-mode;
+    animation: 1s linear 0s infinite normal none running loading-circle-animate;
+}
+
+@keyframes loading-circle-animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

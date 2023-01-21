@@ -1,0 +1,94 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    padding: 20px 0;
+    background-color: var(--bg-color);
+    border-bottom: 1px solid var(--border-color);
+    width: 692px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+}
+.post-container {
+    margin-right: 114px;
+    margin-left: 12px;
+}
+.user-info {
+    display: flex;
+    // align-items: center;
+}
+.nickname {
+    font-family: SofiaPro, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+    margin-right: 4px;
+}
+.name {
+    font-family: ProximaNova, Arial, Tahoma, PingFangSC, sans-serif;
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 2.8rem;
+    color: var(--light-color);
+}
+.caption {
+    font-size: 1.6rem;
+    line-height: 2.2rem;
+}
+
+.music {
+    display: flex;
+    align-items: center;
+    color: var(--nickname-color);
+    font-weight: 600;
+    padding: 8px 0;
+    svg {
+        margin-right: 4px;
+    }
+}
+
+.follow-btn {
+    position: absolute;
+    right: 0;
+    top: 24px;
+}
+
+.video-container {
+    color: var(--text-color);
+    display: flex;
+    align-items: flex-end;
+}
+
+.features-list {
+    list-style: none;
+    margin-left: 20px;
+}
+
+.feature-item {
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+    background-color: var(--bg-video-feature);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.value {
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+}
