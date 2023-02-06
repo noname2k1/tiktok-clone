@@ -221,6 +221,7 @@ const Video = React.forwardRef(
                             <WrapBtnComponent placement='top' className={cx('prev-btn')}>
                                 <Link
                                     to={`/@${videos[prevVideoIndex].user.nickname}/video/${videos[prevVideoIndex].uuid}`}
+                                    replace={true}
                                 >
                                     <ArrowLargeIcon />
                                 </Link>
@@ -230,6 +231,7 @@ const Video = React.forwardRef(
                             <WrapBtnComponent placement='bottom' className={cx('next-btn')}>
                                 <Link
                                     to={`/@${videos[nextVideoIndex].user.nickname}/video/${videos[nextVideoIndex].uuid}`}
+                                    replace={true}
                                 >
                                     <ArrowLargeIcon />
                                 </Link>

@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { Home, Following, Profile, Login, Live } from '~/pages';
+import { Home, Following, Profile, Login, Live, Logout } from '~/pages';
 import { HeaderOnly } from '~/layouts';
 import config from '~/config';
 import Search from '~/pages/search';
@@ -38,6 +38,12 @@ const publicRoutes = [
         id: uuid(),
         path: config.routes.video,
         component: VideoDiscover,
+        layout: null,
+    },
+    {
+        id: uuid(),
+        path: config.routes.logout,
+        component: Logout,
         layout: null,
     },
 ];

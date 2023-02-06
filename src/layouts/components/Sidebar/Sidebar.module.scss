@@ -9,9 +9,22 @@
     overflow-y: auto;
     z-index: 2;
     @media screen and (max-width: 1160px) {
-        width: var(--mobile-sidebar-width, 55px);
+        min-width: var(--mobile-sidebar-width, 55px);
+        max-width: var(--mobile-sidebar-width, 55px);
         margin-left: 8px;
         margin-right: 8px;
         overflow: hidden;
+        .suggested-login {
+            display: none;
+        }
+    }
+}
+
+.suggested-login {
+    border-top: 1px solid var(--border-color);
+    padding: 20px 8px 24px 8px;
+    color: var(--suggested-label-color);
+    .login-btn {
+        width: 100%;
     }
 }

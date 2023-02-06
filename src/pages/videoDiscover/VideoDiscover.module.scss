@@ -39,18 +39,30 @@ $video-info-width: 544px;
     width: 100%;
     padding: 22px 32px 0;
     margin-bottom: 15px;
+    cursor: pointer;
 }
 
 .avatar {
     display: flex;
     align-items: center;
+    &:hover {
+        ~ .user > .nickname {
+            text-decoration: underline;
+        }
+    }
 }
 .user {
     flex: 1;
     margin-left: 12px;
+    &:hover {
+        .nickname {
+            text-decoration: underline;
+        }
+    }
 }
+
 .nickname {
-    font-family: var(--sofia-font);
+    font-family: var(--secondary-font);
     font-weight: 600;
     font-size: 1.8rem;
     line-height: 2.5rem;
@@ -60,6 +72,10 @@ $video-info-width: 544px;
     font-size: 1.4rem;
 }
 .created-at {
+}
+
+.follow-btn {
+    margin-left: auto;
 }
 .video-statistics {
     padding: 0 32px;
@@ -90,12 +106,22 @@ $video-info-width: 544px;
         display: flex;
         align-items: center;
         justify-content: center;
+        color: var(--text-color);
+        margin-right: 8px;
+        &.liked {
+            color: var(--liked-color);
+        }
     }
     cursor: default;
 }
 
 .like {
     cursor: pointer;
+}
+
+.value {
+    color: var(--light-color);
+    font-size: 1.2rem;
 }
 
 .others {
@@ -136,62 +162,6 @@ $video-info-width: 544px;
     font-weight: 600;
     &:hover {
         background-color: var(--link-hover-bg);
-    }
-}
-
-.comments {
-    border-top: 1px solid var(--focus-border-color);
-    border-bottom: 1px solid var(--focus-border-color);
-    flex: 1;
-    padding: 24px 32px;
-    overflow-y: auto;
-    .comment {
-        display: flex;
-        align-items: flex-start;
-        margin-bottom: 16px;
-    }
-}
-
-.comment-content {
-    flex: 1;
-    margin-left: 12px;
-    .name {
-        font-weight: 600;
-        font-size: 1.8rem;
-        color: var(--nickname-color);
-        font-family: var(--sofia-font);
-    }
-    .content {
-        margin-bottom: 6px;
-    }
-}
-
-.comment-features {
-    color: var(--lighter-color);
-    font-size: 1.4rem;
-    line-height: 20px;
-}
-
-.reply-btn {
-    margin-left: 24px;
-    cursor: pointer;
-}
-
-.view-more {
-    display: flex;
-    align-items: center;
-    margin-top: 16px;
-    color: var(--lighter-color);
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 1.4rem;
-    line-height: 20px;
-    width: fit-content;
-    &:hover {
-        text-decoration: underline;
-    }
-    svg {
-        margin-left: 6px;
     }
 }
 

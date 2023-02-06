@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { publicRoutes, privateRoutes } from '~/routes';
 import DefaultLayout from '~/layouts';
 import { Fragment } from 'react';
+import GlobalComponents from './components/GlobalComponents/GlobalComponents';
 function App() {
     return (
         <Router>
@@ -36,6 +37,8 @@ function App() {
                     ))} */}
                 </Routes>
             </div>
+            {/* GLOBAL COMPONENTS */}
+            <GlobalComponents />
         </Router>
     );
 }

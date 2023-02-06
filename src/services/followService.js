@@ -14,4 +14,22 @@ const getFollowingUsers = async (page = 1, perPage = 5) => {
     }
 };
 
-export { getFollowingUsers };
+const follow = async (userID) => {
+    try {
+        const res = await httpRequest.post(`users/${userID}/follow`);
+        return res.data;
+    } catch (error) {
+        return error;
+    }
+};
+
+const unfollow = async (userID) => {
+    try {
+        const res = await httpRequest.post(`users/${userID}/unfollow`);
+        return res.data;
+    } catch (error) {
+        return error;
+    }
+};
+
+export { getFollowingUsers, follow, unfollow };

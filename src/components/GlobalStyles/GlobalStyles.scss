@@ -7,12 +7,17 @@
     --text-color-secondary: #fff;
     --border-color: #1618231f;
     --light-bg: #1618230f;
+    --disabled-color: #16182357;
+    --overlay-bg: #00000080;
+    --modal-close-btn-bg: #16182308;
+    --suggested-label-color: #16182380;
+    --liked-color: #fe2c55;
     --lighter-color: rgba(22, 24, 35, 0.5);
     --bg-color: rgba(255, 255, 255, 1);
     --bg-color-secondary: #f7f7f7;
     --input-color: rgb(22, 24, 35);
     --input-placeholder-color: rgba(22, 24, 35, 0.75);
-    --hover-bg: rgba(22, 24, 35, 0.09);
+    --hover-bg: rgba(22, 24, 35, 0.05);
     --hover-bg-secondary: rgba(0, 0, 0, 0.12);
     --search-btn-icon-bg: rgba(22, 24, 35, 0.34);
     --bg-video-feature: rgba(22, 24, 35, 0.06);
@@ -21,18 +26,22 @@
     --focus-border-color: rgba(22, 24, 35, 0.2);
     --disabled-btn-color: rgba(22, 24, 35, 0.34);
     --video-overlay-bg: rgba(22, 24, 35, 0.9);
+    --success-color: #00c853;
+    --error-color: #ff0000;
     --btn-in-video-bg: #54545480;
     --btn-in-video-hover-bg: #25252599;
     --default-layout-header-height: 60px;
     --default-layout-width: 1150px;
     --sidebar-width: 356px;
+    --recomment-item-width: 692px;
+    --recomment-item-smaller-width: 624px;
     --mobile-sidebar-width: 55px;
     --default-layout-spacer: 24px;
     --video-width: 270px;
     --medium-video-width: 406px;
     --video-height: calc(450px + (100vw - 768px) / 1152 * 100);
     --font-family: 'Proxima Nova', Arial, Tahoma, PingFangSC, sans-serif;
-    --sofia-font: SofiaPro, Arial, Tahoma, PingFangSC, sans-serif;
+    --secondary-font: SofiaPro, Arial, Tahoma, PingFangSC, sans-serif;
 }
 
 [data-theme='dark'] {

@@ -1,29 +1,31 @@
-import React from 'react';
-import classNames from 'classnames/bind';
-import styles from './VideoDiscover.module.scss';
-import { useLocation, useParams, useNavigate } from 'react-router-dom';
-import * as commentService from '~/services/commentService';
-import * as videoService from '~/services/videoService';
-import Image from '~/components/Image';
-import Button from '~/components/Button';
-import { descriptionFormater, numberFormater } from '~/helpers';
-import {
-    AtIcon,
-    CloseLargeIcon,
-    CommentIcon,
-    ArrowDownIcon,
-    EmojiIcon,
-    HeartIcon,
-} from '~/components/icons';
-import othersList from './othersList';
-import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import Tippy from '@tippyjs/react';
+import classNames from 'classnames/bind';
+import React from 'react';
+import Moment from 'react-moment';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import Button from '~/components/Button';
+import { AtIcon, CloseLargeIcon, CommentIcon, EmojiIcon, HeartIcon } from '~/components/icons';
+import Image from '~/components/Image';
+import AccountPreview from '~/components/SuggestedAccounts/AccountPreview';
 import Toast from '~/components/Toast';
 import Video from '~/components/Video';
-import { useSelector } from 'react-redux';
-import Moment from 'react-moment';
-import styled from 'styled-components';
-import routes from '~/config/routes';
+import { descriptionFormater, numberFormater } from '~/helpers';
+import * as videoService from '~/services/videoService';
+import * as commentService from '~/services/commentService';
+import * as likeService from '~/services/likeService';
+import * as followService from '~/services/followService';
+
+import Comments from './comments';
+import othersList from './othersList';
+import styles from './VideoDiscover.module.scss';
+import config from '~/config';
+import useAuthModal from '~/hooks/useModal';
+import { setVideos } from '~/store/slices/videoSlice';
+import { follow, unfollow } from '~/store/slices/followSlice';
+import { setToast } from '~/store/slices/globalComponentSlice';
 
 const cx = classNames.bind(styles);
 
@@ -37,6 +39,7 @@ const ButtonSC = styled.button`
 `;
 
 const VideoDiscover = () => {
+    const dispatch = useDispatch();
     const divInputRef = React.useRef();
     const params = useParams();
     const location = useLocation();
@@ -46,7 +49,9 @@ const VideoDiscover = () => {
     const currentLink = `${hostName}${location.pathname}`;
     const COMMENT_PLACEHOLDER = 'Add comment...';
     const COMMENT_BTN_LABEL = 'Post';
-    const REPLIES_BTN_LABEL = 'View more replies';
+    const FOLLOW_BTN_LABEL = 'Follow';
+    const FOLLOWING_BTN_LABEL = 'Following';
+    const COPIED = 'Copied';
     const MAX_LENGTH = 150;
     const [currentVideo, setCurrentVideo] = React.useState({
         music: '',
@@ -58,10 +63,10 @@ const VideoDiscover = () => {
         },
     });
 
-    const [comments, setComments] = React.useState([]);
-    const [replies, setReplies] = React.useState([]);
     const [comment, setComment] = React.useState('');
-    const [appear, setAppear] = React.useState(false);
+    const { openAuthModal } = useAuthModal();
+    const { followingUsers } = useSelector((state) => state.follow);
+    const { token, user } = useSelector((state) => state.auth);
 
     React.useEffect(() => {
         const videoId = params.videoId;
@@ -73,17 +78,61 @@ const VideoDiscover = () => {
         } else {
             setCurrentVideo(currrentVideo);
         }
-        commentService
-            .getComments(params.videoId)
-            .then((comments) => {
-                setComments(comments);
-            })
-            .catch((err) => console.log(err));
     }, [params.videoId, videos]);
+
+    const updateLikeState = (video, videoID) => {
+        const videoIndex = videos.findIndex((video) => video.uuid === videoID);
+        if (videoIndex === -1) {
+            setCurrentVideo({
+                ...currentVideo,
+                is_liked: video.is_liked,
+                likes_count: video.likes_count,
+            });
+        } else {
+            const newVideos = JSON.parse(JSON.stringify(videos));
+            newVideos[videoIndex].is_liked = video.is_liked;
+            newVideos[videoIndex].likes_count = video.likes_count;
+            dispatch(setVideos(newVideos));
+        }
+    };
+
+    const handleLikeVideo = (likeState, videoID) => {
+        if (!token || !user) {
+            openAuthModal();
+        }
+        // unlike
+        if (likeState) {
+            likeService.unlikePost(videoID).then((thisVideo) => {
+                updateLikeState(thisVideo, videoID);
+            });
+        } else {
+            // like
+            likeService.likePost(videoID).then((thisVideo) => {
+                updateLikeState(thisVideo, videoID);
+            });
+        }
+    };
+
+    const handleFollowUser = (followState, userID) => {
+        if (!token || !user) {
+            openAuthModal();
+        }
+        // unfollow
+        if (followState) {
+            followService.unfollow(userID).then((thisUser) => {
+                dispatch(unfollow(thisUser));
+            });
+        } else {
+            // follow
+            followService.follow(userID).then((thisUser) => {
+                dispatch(follow(thisUser));
+            });
+        }
+    };
 
     const handleCopyLink = () => {
         navigator.clipboard.writeText(currentLink);
-        setAppear(true);
+        dispatch(setToast({ enabled: true, content: COPIED }));
     };
 
     const handleCommentChange = (e) => {
@@ -108,7 +157,30 @@ const VideoDiscover = () => {
     };
 
     const handleBackToPreviousPage = () => {
-        navigate(routes.home);
+        navigate(config.routes.home);
+    };
+
+    const loadComments = async () => {
+        commentService
+            .getComments(currentVideo.uuid)
+            .then((comments) => {
+                const commentsCount = comments.length;
+                // console.log(commentsCount);
+                setCurrentVideo((prev) => ({ ...prev, comments_count: commentsCount }));
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const handleCreateComment = () => {
+        if (comment) {
+            commentService.createComment(currentVideo.uuid, comment).then((data) => {
+                loadComments();
+            });
+            setComment('');
+            divInputRef.current.textContent = '';
+        }
     };
 
     return (
@@ -127,27 +199,54 @@ const VideoDiscover = () => {
             {/* right */}
             <div className={cx('video-info')}>
                 <div className={cx('user-info')}>
-                    <div className={cx('avatar')}>
-                        <Image
-                            src={currentVideo.user.avatar}
-                            alt={currentVideo.user.nickname}
-                            rounded
+                    <AccountPreview
+                        user={currentVideo.user}
+                        offset={[260, 0]}
+                        placement='bottom-end'
+                    >
+                        <div className={cx('avatar')}>
+                            <Image
+                                src={currentVideo.user.avatar}
+                                alt={currentVideo.user.nickname}
+                                rounded
+                                medium
+                            />
+                        </div>
+                    </AccountPreview>
+                    <AccountPreview
+                        user={currentVideo.user}
+                        placement='bottom-end'
+                        offset={[90, 0]}
+                    >
+                        <div className={cx('user')}>
+                            <p className={cx('nickname')}>{currentVideo.user.nickname}</p>
+                            <p className={cx('name')}>
+                                {`${currentVideo.user.first_name} ${currentVideo.user.last_name}`}
+                                {' · '}
+                                <span className={cx('created-at')}>
+                                    <Moment fromNow>{currentVideo.created_at}</Moment>
+                                </span>
+                            </p>
+                        </div>
+                    </AccountPreview>
+                    <div className={cx('follow-btn')}>
+                        <Button
+                            outline={
+                                !followingUsers.some((user) => user.id === currentVideo.user.id)
+                            }
                             medium
-                        />
+                            onClick={() => {
+                                const followState = followingUsers.some(
+                                    (user) => user.id === currentVideo.user.id
+                                );
+                                handleFollowUser(followState, currentVideo.user.id);
+                            }}
+                        >
+                            {followingUsers.some((user) => user.id === currentVideo.user.id)
+                                ? FOLLOWING_BTN_LABEL
+                                : FOLLOW_BTN_LABEL}
+                        </Button>
                     </div>
-                    <div className={cx('user')}>
-                        <p className={cx('nickname')}>{currentVideo.user.nickname}</p>
-                        <p className={cx('name')}>
-                            {`${currentVideo.user.first_name} ${currentVideo.user.last_name}`}
-                            {' · '}
-                            <span className={cx('created-at')}>
-                                <Moment fromNow>{currentVideo.created_at}</Moment>
-                            </span>
-                        </p>
-                    </div>
-                    <Button outline medium>
-                        Follow
-                    </Button>
                 </div>
                 <div className={cx('video-statistics')}>
                     <p className={cx('description')}>
@@ -156,9 +255,14 @@ const VideoDiscover = () => {
                     {currentVideo.music && <p className={cx('music')}>{currentVideo.music}</p>}
                     <div className={cx('video-reaction')}>
                         <header>
-                            <div className={cx('like')}>
-                                <div className={cx('icon')}>
-                                    <HeartIcon />
+                            <div
+                                className={cx('like')}
+                                onClick={() =>
+                                    handleLikeVideo(currentVideo.is_liked, currentVideo.uuid)
+                                }
+                            >
+                                <div className={cx('icon', { liked: currentVideo.is_liked })}>
+                                    <HeartIcon width={20} height={20} />
                                 </div>
                                 <strong className={cx('value')}>
                                     {numberFormater(currentVideo.likes_count)}
@@ -166,7 +270,7 @@ const VideoDiscover = () => {
                             </div>
                             <div className={cx('comment')}>
                                 <div className={cx('icon')}>
-                                    <CommentIcon />
+                                    <CommentIcon width={20} height={20} />
                                 </div>
                                 <strong className={cx('value')}>
                                     {numberFormater(currentVideo.comments_count)}
@@ -204,45 +308,10 @@ const VideoDiscover = () => {
                     </div>
                 </div>
                 {/* comments list */}
-                <div className={cx('comments')}>
-                    {comments.map((commentItem) => {
-                        const { id, user, comment, created_at } = commentItem;
-                        return (
-                            <div key={id} className={cx('comment')}>
-                                <div className={cx('avatar')}>
-                                    <Image src={user.avatar} alt={user.nickname} rounded medium />
-                                </div>
-                                <div className={cx('comment-content')}>
-                                    <p className={cx('name')}>
-                                        {user.first_name || user.last_name
-                                            ? `${user.first_name} ${user.last_name}`
-                                            : user.nickname}
-                                    </p>
-                                    <p className={cx('content')}>{comment}</p>
-                                    <div className={cx('comment-features')}>
-                                        <span>
-                                            {' '}
-                                            <Moment fromNow>{created_at}</Moment>
-                                        </span>
-                                        <span className={cx('reply-btn')}>Reply</span>
-                                    </div>
-                                    <p
-                                        className={cx('view-more', {
-                                            [id]: id,
-                                        })}
-                                    >
-                                        {replies.length > 0 && (
-                                            <>
-                                                {REPLIES_BTN_LABEL}({replies.length})
-                                                <ArrowDownIcon />
-                                            </>
-                                        )}
-                                    </p>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
+                <Comments
+                    commentsCount={currentVideo.comments_count}
+                    hostID={currentVideo.user.id}
+                />
                 <div className={cx('comment-box')}>
                     <div className={cx('comment-input')}>
                         {!comment && (
@@ -278,13 +347,14 @@ const VideoDiscover = () => {
                             </div>
                         )}
                     </div>
-                    <div className={cx('comment-btn', { active: comment })}>
+                    <div
+                        className={cx('comment-btn', { active: comment })}
+                        onClick={handleCreateComment}
+                    >
                         {COMMENT_BTN_LABEL}
                     </div>
                 </div>
             </div>
-            {/* copy link toast */}
-            <Toast content='copied' appear={[appear, setAppear]} />
         </section>
     );
 };

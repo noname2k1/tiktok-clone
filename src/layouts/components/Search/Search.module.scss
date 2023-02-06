@@ -97,3 +97,9 @@
         transform: rotate(360deg);
     }
 }
+
+@media screen and (max-width: 840px) {
+    .search {
+        display: none;
+    }
+}

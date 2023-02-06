@@ -1,44 +1,42 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './Toast.module.scss';
 import classNames from 'classnames/bind';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToast } from '~/store/slices/globalComponentSlice';
 
 const cx = classNames.bind(styles);
 
-const Toast = ({ content, placement = 'top', appear: appearState = [] }) => {
-    const [appear, setAppear] = appearState;
-    const [disappear, setDisappear] = React.useState(false);
+const Toast = () => {
+    const dispatch = useDispatch();
+    const { toast } = useSelector((state) => state.globalComponent);
+    const { content, placement, enabled } = toast;
+    // const [disappear, setDisappear] = React.useState(false);
 
     const apperLife = 2000;
     React.useEffect(() => {
         let appearId;
-        if (appear) {
+        if (enabled) {
             appearId = setTimeout(() => {
-                setAppear(false);
-                setDisappear(true);
+                // setDisappear(true);
+                dispatch(setToast({ enabled: false }));
             }, apperLife);
         }
         return () => {
             clearTimeout(appearId);
         };
-    }, [appear, setAppear]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [enabled]);
+
     return (
         <div
             className={cx('wrapper', {
                 [placement]: placement,
-                appear,
-                disappear,
+                appear: enabled,
             })}
         >
             <div className={cx('toast-container')}>{content}</div>
         </div>
     );
-};
-
-Toast.propTypes = {
-    content: PropTypes.string,
-    placement: PropTypes.string,
-    appear: PropTypes.array,
 };
 
 export default Toast;

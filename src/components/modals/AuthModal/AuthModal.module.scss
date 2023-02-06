@@ -1,0 +1,42 @@
+.wrapper {
+    position: fixed;
+}
+
+.content-list {
+    list-style: none;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+.title {
+    text-align: center;
+    margin: 16px 0;
+    font-size: 3.2rem;
+}
+
+.content-item {
+    background-color: inherit;
+    padding: 10px 80px;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    margin-top: 16px;
+    position: relative;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.8rem;
+}
+
+.label {
+    font-size: 1.5rem;
+    font-weight: 600;
+}

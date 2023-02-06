@@ -1,18 +1,22 @@
-import React from 'react';
-import styles from './Sidebar.module.scss';
 import classNames from 'classnames/bind';
-import Menu, { MenuItem } from './Menu';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import Button from '~/components/Button';
 import {
-    HomeIcon,
     HomeActiveIcon,
-    UsersGroupIcon,
-    UsersGroupActiveIcon,
-    LiveBigIcon,
+    HomeIcon,
     LiveBigActiveIcon,
+    LiveBigIcon,
+    UsersGroupActiveIcon,
+    UsersGroupIcon,
 } from '~/components/icons';
 import SuggestedAccounts from '~/components/SuggestedAccounts';
-import * as userService from '~/services/userService';
+import config from '~/config';
+import useAuthModal from '~/hooks/useModal';
 import * as followService from '~/services/followService';
+import * as userService from '~/services/userService';
+import Menu, { MenuItem } from './Menu';
+import styles from './Sidebar.module.scss';
 
 const cx = classNames.bind(styles);
 const INITIAL_PAGE = 1;
@@ -21,6 +25,8 @@ const INITIAL_PER_PAGE = 5;
 const SEE_ALL_COUNT = 20;
 
 const Sidebar = () => {
+    const { openAuthModal } = useAuthModal();
+    const { token, user } = useSelector((state) => state.auth);
     const [page, setPage] = React.useState({
         suggested: INITIAL_PAGE,
         following: INITIAL_PAGE,
@@ -45,10 +51,7 @@ const Sidebar = () => {
                     if (page.suggested === INITIAL_PAGE) {
                         setSuggestedUsers(users);
                     } else {
-                        setSuggestedUsers((prevUsers) => [
-                            ...prevUsers,
-                            ...users,
-                        ]);
+                        setSuggestedUsers((prevUsers) => [...prevUsers, ...users]);
                     }
                 })
                 .catch((error) => console.log(error));
@@ -65,10 +68,7 @@ const Sidebar = () => {
                     if (page.following === INITIAL_PAGE) {
                         setFollowingUsers(users);
                     } else {
-                        setFollowingUsers((prevUsers) => [
-                            ...prevUsers,
-                            ...users,
-                        ]);
+                        setFollowingUsers((prevUsers) => [...prevUsers, ...users]);
                     }
                 })
                 .catch((error) => console.log(error));
@@ -148,28 +148,41 @@ const Sidebar = () => {
         }
     };
 
+    const handleOpenAuthModal = () => {
+        openAuthModal();
+    };
+
     return (
         <aside className={cx('wrapper')}>
             <Menu>
                 <MenuItem
-                    to='/'
+                    to={config.routes.home}
                     icon={<HomeIcon />}
                     activeIcon={<HomeActiveIcon />}
                     title='For You'
                 />
                 <MenuItem
-                    to='/following'
+                    to={config.routes.following}
                     icon={<UsersGroupIcon />}
                     activeIcon={<UsersGroupActiveIcon />}
                     title='Following'
                 />
                 <MenuItem
-                    to='/live'
+                    to={config.routes.live}
                     icon={<LiveBigIcon width='32' height='32' />}
                     activeIcon={<LiveBigActiveIcon />}
                     title='LIVE'
                 />
             </Menu>
+            {/* suggested to login */}
+            {!token && !Object.keys(user).length > 0 && (
+                <div className={cx('suggested-login')}>
+                    <p>Log in to follow creators, like videos, and view comments.</p>
+                    <Button outline large className={cx('login-btn')} onClick={handleOpenAuthModal}>
+                        Login
+                    </Button>
+                </div>
+            )}
             <SuggestedAccounts
                 label='Suggested accounts'
                 emptyLabel='Suggested accounts will appear here'

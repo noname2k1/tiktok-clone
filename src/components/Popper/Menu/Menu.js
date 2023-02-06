@@ -6,30 +6,29 @@ import classNames from 'classnames/bind';
 import styles from './Menu.module.scss';
 import MenuItem from './MenuItem';
 import Header from './Header';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-const defaultFunction = () => {};
-
-const Menu = ({
-    items = [],
-    hideOnClick = false,
-    children,
-    onChange = defaultFunction,
-}) => {
+const Menu = ({ items = [], hideOnClick = false, children }) => {
+    const navigate = useNavigate();
+    const location = useLocation();
     const [history, setHistory] = React.useState([{ data: items }]);
     const currentHistory = history[history.length - 1];
-
     const renderItems = () => {
         return currentHistory.data.map((item, index) => (
             <MenuItem
                 key={index}
                 data={item}
-                onClick={() => {
+                onClick={(e) => {
                     if (item.children) {
                         setHistory([...history, item.children]);
                     }
-                    // onChange(item);
+                    if (item.pathName) {
+                        e.preventDefault();
+                        navigate(item.to, { state: location.pathname, replace: true });
+                    }
+                    // item.onClick && item.onClick();
                 }}
                 separateTop={item.separateTop}
             />
@@ -44,10 +43,7 @@ const Menu = ({
         <div className={cx('menu-list')} tabIndex='-1' {...attrs}>
             <PopperWrapper className={cx('submenu')}>
                 {currentHistory.title && (
-                    <Header
-                        title={currentHistory.title}
-                        onBack={handleBackToPreviousLevel}
-                    />
+                    <Header title={currentHistory.title} onBack={handleBackToPreviousLevel} />
                 )}
                 <div className={cx('menu-body')}>{renderItems()}</div>
             </PopperWrapper>
@@ -79,7 +75,6 @@ Menu.propTypes = {
     items: PropTypes.array,
     hideOnClick: PropTypes.bool,
     children: PropTypes.node.isRequired,
-    onChange: PropTypes.func,
 };
 
 export default Menu;

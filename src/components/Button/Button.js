@@ -62,14 +62,10 @@ const Button = ({
     }
 
     return (
-        <Component className={classes} {..._props}>
-            {lefticon && (
-                <span className={cx('left-icon', 'icon')}>{lefticon}</span>
-            )}
+        <Component className={classes} {..._props} disabled={disabled}>
+            {lefticon && <span className={cx('left-icon', 'icon')}>{lefticon}</span>}
             <span>{children}</span>
-            {righticon && (
-                <span className={cx('right-icon', 'icon')}>{righticon}</span>
-            )}
+            {righticon && <span className={cx('right-icon', 'icon')}>{righticon}</span>}
         </Component>
     );
 };

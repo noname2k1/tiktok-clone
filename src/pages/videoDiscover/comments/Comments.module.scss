@@ -1,0 +1,143 @@
+.comments {
+    border-top: 1px solid var(--focus-border-color);
+    border-bottom: 1px solid var(--focus-border-color);
+    flex: 1;
+    padding: 24px 32px;
+    overflow-y: auto;
+    .comment {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 16px;
+    }
+}
+
+.name {
+    width: fit-content;
+    &:hover {
+        text-decoration: underline !important;
+    }
+}
+
+.no-comment,
+.un-authorization,
+.loading {
+    cursor: default;
+    user-select: none;
+    color: var(--text-color);
+    font-weight: lighter;
+    text-align: center;
+}
+.go-to-login {
+    cursor: pointer;
+    color: var(--primary-color);
+    &:hover {
+        text-decoration: underline;
+    }
+}
+.comment-content {
+    flex: 1;
+    margin-left: 12px;
+    .name {
+        font-weight: 600;
+        font-size: 1.8rem;
+        color: var(--nickname-color);
+        font-family: var(--secondary-font);
+    }
+    .content {
+        margin-bottom: 6px;
+    }
+}
+
+.highlight-text {
+    color: var(--primary-color);
+}
+
+.comment-features {
+    color: var(--lighter-color);
+    font-size: 1.4rem;
+    line-height: 20px;
+}
+
+.reply-btn {
+    margin-left: 24px;
+    cursor: pointer;
+}
+
+.view-more {
+    display: flex;
+    align-items: center;
+    margin-top: 16px;
+    color: var(--lighter-color);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 20px;
+    width: fit-content;
+    &:hover {
+        text-decoration: underline;
+    }
+    svg {
+        margin-left: 6px;
+    }
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--suggested-label-color);
+    &:hover {
+        .more {
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+    cursor: pointer;
+}
+.more {
+    color: var(--text-color);
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+    svg {
+        transform: rotate(90deg);
+    }
+}
+.heart {
+    display: flex;
+    &.liked {
+        color: var(--liked-color);
+    }
+}
+
+.value {
+    font-size: 1.2rem;
+}
+
+// More options scss
+.wrapper {
+    padding: 20px;
+    min-height: unset;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    font-weight: 600;
+    margin: 5px 0;
+    min-width: 200px;
+    &:hover {
+        color: var(--primary-color);
+    }
+    .icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .label {
+        margin-left: 12px;
+        white-space: nowrap;
+    }
+}

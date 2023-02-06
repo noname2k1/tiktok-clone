@@ -1,4 +1,12 @@
-const SVGWrapper = ({ children, className, width, height, viewBox = '0 0 48 48', ...props }) => {
+const SVGWrapper = ({
+    children,
+    className,
+    width,
+    height,
+    viewBox = '0 0 48 48',
+    fill = 'currentColor',
+    ...props
+}) => {
     return (
         <svg
             className={className}
@@ -6,7 +14,7 @@ const SVGWrapper = ({ children, className, width, height, viewBox = '0 0 48 48',
             data-e2e
             height={height}
             viewBox={viewBox}
-            fill='currentColor'
+            fill={fill}
             xmlns='http://www.w3.org/2000/svg'
             {...props}
         >
@@ -427,6 +435,18 @@ const HeartIcon = ({ className, width = 24, height = 24 }) => {
     );
 };
 
+const HeartSolidIcon = ({ className, width = 20, height = 20 }) => {
+    return (
+        <SVGWrapper width={width} height={height} className={className}>
+            <path
+                fillRule='evenodd'
+                clipRule='evenodd'
+                d='M24 9.01703C19.0025 3.74266 11.4674 3.736 6.67302 8.56049C1.77566 13.4886 1.77566 21.4735 6.67302 26.4016L22.5814 42.4098C22.9568 42.7876 23.4674 43 24 43C24.5326 43 25.0432 42.7876 25.4186 42.4098L41.327 26.4016C46.2243 21.4735 46.2243 13.4886 41.327 8.56049C36.5326 3.736 28.9975 3.74266 24 9.01703ZM21.4938 12.2118C17.9849 8.07195 12.7825 8.08727 9.51028 11.3801C6.16324 14.7481 6.16324 20.214 9.51028 23.582L24 38.1627L38.4897 23.582C41.8368 20.214 41.8368 14.7481 38.4897 11.3801C35.2175 8.08727 30.0151 8.07195 26.5062 12.2118L26.455 12.2722L25.4186 13.3151C25.0432 13.6929 24.5326 13.9053 24 13.9053C23.4674 13.9053 22.9568 13.6929 22.5814 13.3151L21.545 12.2722L21.4938 12.2118Z'
+            />
+        </SVGWrapper>
+    );
+};
+
 const CommentIcon = ({ className, width = 24, height = 24 }) => {
     return (
         <SVGWrapper width={width} height={height} className={className} viewBox='0 0 20 20'>
@@ -714,47 +734,157 @@ const ArrowLargeIcon = ({ className, width = '26', height = '26' }) => {
     );
 };
 
+const QrCodeIcon = ({ className, width = '1em', height = '1em' }) => {
+    return (
+        <SVGWrapper width={width} height={height} className={className}>
+            <path
+                fillRule='evenodd'
+                clipRule='evenodd'
+                d='M8 6C6.89543 6 6 6.89543 6 8V21C6 22.1046 6.89543 23 8 23H21C22.1046 23 23 22.1046 23 21V8C23 6.89543 22.1046 6 21 6H8ZM10 19V10H19V19H10ZM28 6C26.8954 6 26 6.89543 26 8V21C26 22.1046 26.8954 23 28 23H41C42.1046 23 43 22.1046 43 21V8C43 6.89543 42.1046 6 41 6H28ZM30 19V10H39V19H30ZM8 26C6.89543 26 6 26.8954 6 28V41C6 42.1046 6.89543 43 8 43H21C22.1046 43 23 42.1046 23 41V28C23 26.8954 22.1046 26 21 26H8ZM10 39V30H19V39H10ZM26 42C26 42.5523 26.4477 43 27 43H29C29.5523 43 30 42.5523 30 42V27C30 26.4477 29.5523 26 29 26H27C26.4477 26 26 26.4477 26 27V42ZM32.5 42C32.5 42.5523 32.9477 43 33.5 43H35.5C36.0523 43 36.5 42.5523 36.5 42V27C36.5 26.4477 36.0523 26 35.5 26H33.5C32.9477 26 32.5 26.4477 32.5 27V42ZM40 43C39.4477 43 39 42.5523 39 42V27C39 26.4477 39.4477 26 40 26H42C42.5523 26 43 26.4477 43 27V42C43 42.5523 42.5523 43 42 43H40Z'
+            />
+        </SVGWrapper>
+    );
+};
+
+const UserIcon = ({ className, width = '1em', height = '1em' }) => {
+    return (
+        <SVGWrapper width={width} height={height} className={className}>
+            <path
+                fillRule='evenodd'
+                clipRule='evenodd'
+                d='M24.0003 7C20.1343 7 17.0003 10.134 17.0003 14C17.0003 17.866 20.1343 21 24.0003 21C27.8663 21 31.0003 17.866 31.0003 14C31.0003 10.134 27.8663 7 24.0003 7ZM13.0003 14C13.0003 7.92487 17.9252 3 24.0003 3C30.0755 3 35.0003 7.92487 35.0003 14C35.0003 20.0751 30.0755 25 24.0003 25C17.9252 25 13.0003 20.0751 13.0003 14ZM24.0003 33C18.0615 33 13.0493 36.9841 11.4972 42.4262C11.3457 42.9573 10.8217 43.3088 10.2804 43.1989L8.32038 42.8011C7.77914 42.6912 7.4266 42.1618 7.5683 41.628C9.49821 34.358 16.1215 29 24.0003 29C31.8792 29 38.5025 34.358 40.4324 41.628C40.5741 42.1618 40.2215 42.6912 39.6803 42.8011L37.7203 43.1989C37.179 43.3088 36.6549 42.9573 36.5035 42.4262C34.9514 36.9841 29.9391 33 24.0003 33Z'
+            />
+        </SVGWrapper>
+    );
+};
+
+const ClosedEyesIcon = ({ className, width = '16', height = '16' }) => {
+    return (
+        <SVGWrapper width={width} height={height} className={className} viewBox='0 0 20 20'>
+            <g
+                stroke='#161823'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeMiterlimit={10}
+                strokeWidth='1.5'
+                opacity='0.5'
+            >
+                <path d='M2.8 7.8c2.1 1 4.5 1.6 7 1.6s4.9-.6 7-1.6M9.8 9.8v3M5.1 9.2l-1.5 2.6M14.6 9.2l1.5 2.6' />
+            </g>
+        </SVGWrapper>
+    );
+};
+
+const OpenEyesIcon = ({ className, width = '16', height = '16' }) => {
+    return (
+        <SVGWrapper
+            width={width}
+            height={height}
+            className={className}
+            viewBox='0 0 20 20'
+            fill='none'
+        >
+            <g
+                stroke='#161823'
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeMiterlimit={10}
+                strokeWidth='1.5'
+                opacity='0.5'
+            >
+                <path d='M9.8 4.8c3 0 5.3 1.7 7 5-1.7 3.3-4 5-7 5s-5.3-1.7-7-5c1.6-3.4 4-5 7-5z' />
+                <path d='M9.8 11.8a2 2 0 100-4 2 2 0 000 4z' />
+            </g>
+        </SVGWrapper>
+    );
+};
+
+const TrashIcon = ({ className, width = '24', height = '24' }) => {
+    return (
+        <SVGWrapper width={width} height={height} className={className}>
+            <path
+                fillRule='evenodd'
+                clipRule='evenodd'
+                d='M19.5 7.50006V9.50006H28.5V7.50006H19.5ZM32.5 9.50006V6.00006C32.5 4.61935 31.3807 3.50006 30 3.50006H18C16.6193 3.50006 15.5 4.61935 15.5 6.00006V9.50006H7C6.44772 9.50006 6 9.94778 6 10.5001V12.5001C6 13.0523 6.44772 13.5001 7 13.5001H9.5V39.5001C9.5 41.7092 11.2909 43.5001 13.5 43.5001H34.5C36.7091 43.5001 38.5 41.7092 38.5 39.5001V13.5001H41C41.5523 13.5001 42 13.0523 42 12.5001V10.5001C42 9.94778 41.5523 9.50006 41 9.50006H32.5ZM34.5 13.5001H13.5V39.5001H34.5V13.5001ZM18.5 34.0001C17.9477 34.0001 17.5 33.5523 17.5 33.0001V20.0001C17.5 19.4478 17.9477 19.0001 18.5 19.0001H20.5C21.0523 19.0001 21.5 19.4478 21.5 20.0001V33.0001C21.5 33.5523 21.0523 34.0001 20.5 34.0001H18.5ZM27.5 34.0001C26.9477 34.0001 26.5 33.5523 26.5 33.0001V20.0001C26.5 19.4478 26.9477 19.0001 27.5 19.0001H29.5C30.0523 19.0001 30.5 19.4478 30.5 20.0001V33.0001C30.5 33.5523 30.0523 34.0001 29.5 34.0001H27.5Z'
+            />
+        </SVGWrapper>
+    );
+};
+
+const FlagIcon = ({ className, width = '24', height = '24' }) => {
+    return (
+        <SVGWrapper width={width} height={height} className={className}>
+            <path
+                fillRule='evenodd'
+                clipRule='evenodd'
+                d='M9 9.31286V27.0626C9.98685 26.7378 11.184 26.4042 12.5108 26.1585C16.1115 25.4917 21.0181 25.4123 25.1625 28.3726C28.0181 30.4123 31.6115 30.4917 34.7608 29.9085C36.306 29.6223 37.6602 29.1908 38.6289 28.8293C38.7603 28.7803 38.8841 28.7328 39 28.6872V10.9374C38.0131 11.2623 36.816 11.5959 35.4892 11.8416C31.8885 12.5084 26.9819 12.5878 22.8375 9.62751C19.9819 7.58781 16.3885 7.5084 13.2392 8.09161C11.694 8.37776 10.3398 8.80927 9.37105 9.17072C9.23971 9.21973 9.11586 9.2673 9 9.31286ZM40.1067 6.21064C40.7264 5.90123 41.4622 5.93453 42.0515 6.29874C42.6411 6.66315 43 7.30688 43 8.00004V30C43 30.7576 42.572 31.4501 41.8944 31.7889L41 30C41.8944 31.7889 41.8931 31.7895 41.8931 31.7895L41.8916 31.7903L41.8878 31.7922L41.8775 31.7973L41.846 31.8127C41.831 31.82 41.8128 31.8288 41.7915 31.839C41.7761 31.8464 41.7589 31.8545 41.7401 31.8634C41.651 31.9055 41.525 31.9637 41.3654 32.0343C41.0466 32.1753 40.5919 32.3663 40.0273 32.577C38.9023 32.9967 37.319 33.5027 35.4892 33.8416C31.8885 34.5084 26.9819 34.5878 22.8375 31.6275C19.9819 29.5878 16.3885 29.5084 13.2392 30.0916C11.694 30.3778 10.3398 30.8093 9.37105 31.1707C9.23971 31.2197 9.11586 31.2673 9 31.3129V44.0001C9 44.5524 8.55228 45.0001 8 45.0001H6C5.44772 45.0001 5 44.5524 5 44.0001V8.00004C5 7.24249 5.42801 6.54996 6.10558 6.21118L7 8.00004C6.10558 6.21118 6.10688 6.21053 6.10688 6.21053L6.10842 6.20976L6.11219 6.20789L6.12249 6.20279L6.15404 6.18734C6.17988 6.17477 6.21529 6.15773 6.25987 6.13667C6.34902 6.09457 6.47498 6.03636 6.63455 5.9658C6.95342 5.8248 7.4081 5.63378 7.9727 5.42311C9.09774 5.00332 10.681 4.49734 12.5108 4.15849C16.1115 3.49171 21.0181 3.4123 25.1625 6.37257C28.0181 8.41227 31.6115 8.49167 34.7608 7.90846C36.306 7.62231 37.6602 7.1908 38.6289 6.82935C39.1112 6.6494 39.4925 6.48886 39.7478 6.37595C39.8754 6.31956 39.9711 6.27523 40.0318 6.24653C40.0622 6.23219 40.0838 6.22177 40.0962 6.21572L40.1056 6.21118L40.1067 6.21064Z'
+            />
+        </SVGWrapper>
+    );
+};
+
+const EditIcon = ({ className, width = '24', height = '24' }) => {
+    return (
+        <SVGWrapper width={width} height={height} className={className} viewBox='0 0 20 20'>
+            <path
+                fill='currentColor'
+                fillRule='evenodd'
+                d='M15.393 2.226a.842.842 0 00-1.17.02L8.142 8.33a.842.842 0 00-.247.595v2.34c0 .464.377.841.842.841h2.183a.842.842 0 00.596-.246l6.237-6.238a.843.843 0 00-.02-1.211l-2.34-2.184zM9.58 9.273l5.26-5.26 1.107 1.033-5.374 5.375h-.993V9.273zM9.58 2c.232 0 .42.189.42.421v.842a.421.421 0 01-.42.421H4.526a.842.842 0 00-.842.842v10.948c0 .465.377.842.842.842h10.947a.842.842 0 00.842-.842V10.42c0-.232.189-.421.421-.421h.842c.233 0 .422.188.422.421v5.053A2.526 2.526 0 0115.473 18H4.526A2.526 2.526 0 012 15.474V4.526A2.526 2.526 0 014.526 2H9.58z'
+                clipRule='evenodd'
+            />
+        </SVGWrapper>
+    );
+};
+
 export {
-    SearchIcon,
-    MoreIcon,
-    PlusIcon,
-    MessagesIcon,
-    NotificationsIcon,
-    PersonIcon,
-    TiktokCoinIcon,
-    LiveSmallIcon,
-    SettingsIcon,
-    LanguagesIcon,
-    HelpIcon,
-    KeyBoardIcon,
-    DarkModeIcon,
-    LogoutIcon,
-    CloseIcon,
-    CloseLargeIcon,
-    SpinnerIcon,
-    CheckIcon,
-    ChevronLeftIcon,
-    HomeIcon,
-    HomeActiveIcon,
-    UsersGroupIcon,
-    UsersGroupActiveIcon,
-    LiveBigIcon,
-    LiveBigActiveIcon,
-    HeartIcon,
-    CommentIcon,
-    ShareIcon,
-    MusicNoteIcon,
-    PlayIcon,
-    PauseIcon,
-    MuteIcon,
-    UnMuteIcon,
-    EmbedIcon,
-    PlaneIcon,
-    FacebookIcon,
-    WhatsAppIcon,
-    TwitterIcon,
-    AtIcon,
-    EmojiIcon,
     ArrowDownIcon,
     ArrowLargeIcon,
+    AtIcon,
+    CheckIcon,
+    ChevronLeftIcon,
+    ClosedEyesIcon,
+    CloseIcon,
+    CloseLargeIcon,
+    CommentIcon,
+    DarkModeIcon,
+    EditIcon,
+    EmbedIcon,
+    EmojiIcon,
+    FacebookIcon,
+    FlagIcon,
+    HeartIcon,
+    HeartSolidIcon,
+    HelpIcon,
+    HomeActiveIcon,
+    HomeIcon,
+    KeyBoardIcon,
+    LanguagesIcon,
+    LiveBigActiveIcon,
+    LiveBigIcon,
+    LiveSmallIcon,
+    LogoutIcon,
+    MessagesIcon,
+    MoreIcon,
+    MusicNoteIcon,
+    MuteIcon,
+    NotificationsIcon,
+    OpenEyesIcon,
+    PauseIcon,
+    PersonIcon,
+    PlaneIcon,
+    PlayIcon,
+    PlusIcon,
+    QrCodeIcon,
+    SearchIcon,
+    SettingsIcon,
+    ShareIcon,
+    SpinnerIcon,
+    TiktokCoinIcon,
+    TrashIcon,
+    TwitterIcon,
+    UnMuteIcon,
+    UserIcon,
+    UsersGroupActiveIcon,
+    UsersGroupIcon,
+    WhatsAppIcon,
 };

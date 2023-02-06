@@ -1,0 +1,39 @@
+.wrapper {
+}
+
+.description {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.label {
+}
+.switch {
+}
+
+.forgot-password {
+    margin-top: 10px;
+    font-size: 1.4rem;
+    width: fit-content;
+    cursor: pointer;
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.button {
+    width: 100%;
+    margin-top: 20px;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+}
+
+.error,
+.error-after-submit {
+    font-size: 1.4rem;
+    color: var(--error-color);
+}
+
+.error-after-submit {
+    text-align: center;
+}
