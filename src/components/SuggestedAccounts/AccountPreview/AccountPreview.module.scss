@@ -4,6 +4,13 @@
     color: var(--text-color);
     box-shadow: rgb(0 0 0 / 24%) 0px 4px 16px, rgb(0 0 0 / 12%) 0px -1px 3px;
 }
+@media screen and (max-width: 1160px) {
+    aside {
+        .account-preview {
+            display: none;
+        }
+    }
+}
 .header {
     display: flex;
     align-items: center;

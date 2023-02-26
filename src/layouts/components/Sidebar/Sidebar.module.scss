@@ -1,13 +1,13 @@
 .wrapper {
-    width: var(--sidebar-width, 356px);
     padding: 20px 0 26px 0;
     background-color: var(--bg-color);
     position: sticky;
     left: 0;
     top: var(--default-layout-header-height);
     height: calc(100vh - var(--default-layout-header-height));
-    overflow-y: auto;
     z-index: 2;
+    transition: overflow-y 1s ease-in-out;
+    overflow-y: hidden;
     @media screen and (max-width: 1160px) {
         min-width: var(--mobile-sidebar-width, 55px);
         max-width: var(--mobile-sidebar-width, 55px);
@@ -17,6 +17,15 @@
         .suggested-login {
             display: none;
         }
+    }
+    &.large {
+        width: var(--sidebar-width, 356px);
+    }
+    &.medium {
+        width: var(--sidebar-width-smaller, 232px);
+    }
+    &:hover {
+        overflow-y: auto;
     }
 }
 

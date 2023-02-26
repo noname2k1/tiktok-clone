@@ -11,8 +11,10 @@ const cx = classNames.bind(styles);
 
 const AccountItem = ({ show = false, user }) => {
     const Component = show ? AccountPreview : Link;
+    const to = `/@${user.nickname}`;
+    const userData = show ? user : undefined;
     return (
-        <Component user={user}>
+        <Component user={userData} to={to}>
             <div className={cx('account-item')}>
                 {/* avatar */}
                 <Image src={user.avatar} alt={user.nickname} className={cx('avatar')} small />

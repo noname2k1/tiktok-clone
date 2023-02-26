@@ -9,18 +9,16 @@ import Button from '../../Button';
 import Image from '~/components/Image';
 import { Link } from 'react-router-dom';
 import { numberFormater } from '~/helpers';
-import { useDispatch, useSelector } from 'react-redux';
-import useAuthModal from '~/hooks/useModal';
-import * as followService from '~/services/followService';
-import { follow, unfollow } from '~/store/slices/followSlice';
+import { useSelector } from 'react-redux';
+import { useFollow, useModal } from '~/hooks';
 
 const cx = classNames.bind(styles);
 
-const AccountPreview = ({ children, user, placement = 'bottom', offset = [-20, 0] }) => {
-    const dispatch = useDispatch();
+const AccountPreview = ({ children, user, placement = 'bottom', offset = [-20, 0], ...props }) => {
     const { followingUsers } = useSelector((state) => state.follow);
     const { token, user: currentUser } = useSelector((state) => state.auth);
-    const { openAuthModal } = useAuthModal();
+    const { openAuthModal } = useModal();
+    const { followUser, unfollowUser } = useFollow();
 
     const renderPreview = (attrs) => {
         const FOLLOW_BTN_LABEL = 'Follow';
@@ -33,14 +31,10 @@ const AccountPreview = ({ children, user, placement = 'bottom', offset = [-20, 0
             }
             if (followingUsers.some((followingUser) => followingUser.id === user.id)) {
                 // unfollow
-                followService.unfollow(user.id).then((thisUser) => {
-                    dispatch(unfollow(thisUser));
-                });
+                unfollowUser(user.id);
             } else {
                 // follow
-                followService.follow(user.id).then((thisUser) => {
-                    dispatch(follow(thisUser));
-                });
+                followUser(user.id);
             }
         };
 
@@ -118,6 +112,7 @@ const AccountPreview = ({ children, user, placement = 'bottom', offset = [-20, 0
                 offset={offset}
                 placement={placement}
                 delay={[1000, 0]}
+                // {...props}
             >
                 {children}
             </Tippy>

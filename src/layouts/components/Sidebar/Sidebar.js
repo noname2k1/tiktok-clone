@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -17,6 +18,8 @@ import * as followService from '~/services/followService';
 import * as userService from '~/services/userService';
 import Menu, { MenuItem } from './Menu';
 import styles from './Sidebar.module.scss';
+import { useLocation } from 'react-router-dom';
+import { chunkArray } from '~/helpers';
 
 const cx = classNames.bind(styles);
 const INITIAL_PAGE = 1;
@@ -24,7 +27,14 @@ const SEE_ALL_PAGE = 2;
 const INITIAL_PER_PAGE = 5;
 const SEE_ALL_COUNT = 20;
 
-const Sidebar = () => {
+const Sidebar = ({
+    large = true,
+    medium = false,
+    suggested = true,
+    following = true,
+    discover = true,
+}) => {
+    const { pathname } = useLocation();
     const { openAuthModal } = useAuthModal();
     const { token, user } = useSelector((state) => state.auth);
     const [page, setPage] = React.useState({
@@ -40,42 +50,113 @@ const Sidebar = () => {
         following: false,
     });
     const [suggestedUsers, setSuggestedUsers] = React.useState([]);
+    const { followingUsers: followingUsersFromStore } = useSelector((state) => state.follow);
+    const followingArrays = chunkArray(followingUsersFromStore, 5);
     const [followingUsers, setFollowingUsers] = React.useState([]);
+
+    const SUGGESTED_LIST_LABEL = 'Suggested accounts';
+    const SUGGESTED_LIST_EMPTY_NOTICE = 'Suggested accounts will appear here';
+    const FOLLOWING_LIST_LABEL = 'Following accounts';
+    const FOLLOWING_LIST_EMPTY_NOTICE = 'Accounts you follow will appear here';
+    const SUGGESTED_HOST = 'Suggested hosts';
+    const SUGGESTED_HOST_EMPTY_NOTICE = 'Suggested hosts will appear here';
+
+    // Menu
+    const FOR_YOU = 'For You';
+    const LIVE = 'Live';
+    // const DISCOVER = 'Discover';
+    const FOLLWING = 'Following';
 
     React.useEffect(() => {
         const getSuggestedUsers = () => {
             userService
                 .getSuggestedUsers(page.suggested, perPage.suggested)
-                .then((users) => {
+                .then((sgUsers) => {
                     // console.log(users);
-                    if (page.suggested === INITIAL_PAGE) {
-                        setSuggestedUsers(users);
-                    } else {
-                        setSuggestedUsers((prevUsers) => [...prevUsers, ...users]);
+                    let suggestedUsers;
+                    if (sgUsers) {
+                        suggestedUsers = sgUsers.filter(
+                            (sgUser) =>
+                                !followingUsersFromStore.some(
+                                    (followingUser) => followingUser.id === sgUser.id
+                                )
+                        );
+                        if (suggestedUsers.length < INITIAL_PER_PAGE + 1) {
+                            setPerPage((prevPerPage) => ({
+                                ...prevPerPage,
+                                suggested:
+                                    perPage.suggested +
+                                    (INITIAL_PER_PAGE + 1 - suggestedUsers.length - 1),
+                            }));
+                        }
+                        if (page.suggested === INITIAL_PAGE) {
+                            setSuggestedUsers(suggestedUsers);
+                        } else {
+                            setSuggestedUsers((prevUsers) => [...prevUsers, ...suggestedUsers]);
+                        }
                     }
                 })
                 .catch((error) => console.log(error));
         };
         getSuggestedUsers();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page.suggested, perPage.suggested]);
     React.useEffect(() => {
-        const getFollowingUsers = () => {
-            followService
-                .getFollowingUsers(page.following, perPage.following)
-                .then((users) => {
-                    // console.log(users);
-                    if (page.following === INITIAL_PAGE) {
-                        setFollowingUsers(users);
-                    } else {
-                        setFollowingUsers((prevUsers) => [...prevUsers, ...users]);
-                    }
-                })
-                .catch((error) => console.log(error));
-        };
-        getFollowingUsers();
+        if (!token) return;
+        if (followingArrays.length > 0) {
+            if (page.following === INITIAL_PAGE) {
+                setFollowingUsers(followingArrays[0]);
+            } else {
+                if (
+                    followingArrays[page.following - 1] &&
+                    followingArrays[page.following - 1].length > 0
+                ) {
+                    setFollowingUsers((prevUsers) => [
+                        ...prevUsers,
+                        ...followingArrays[page.following - 1],
+                    ]);
+                }
+            }
+        } else {
+            const getFollowingUsers = () => {
+                followService
+                    .getFollowingUsers(page.following, perPage.following)
+                    .then((users) => {
+                        // console.log(users);
+                        if (page.following === INITIAL_PAGE) {
+                            setFollowingUsers(users);
+                        } else {
+                            setFollowingUsers((prevUsers) => [...prevUsers, ...users]);
+                        }
+                    })
+                    .catch((error) => console.log(error));
+            };
+            getFollowingUsers();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page.following, perPage.following]);
+
+    React.useEffect(() => {
+        if (followingArrays.length > 0) {
+            if (page.following === INITIAL_PAGE) {
+                setFollowingUsers(followingArrays[0]);
+            } else {
+                if (
+                    followingArrays[page.following - 1] &&
+                    followingArrays[page.following - 1].length > 0
+                ) {
+                    setFollowingUsers((prevUsers) => [
+                        ...prevUsers,
+                        ...followingArrays[page.following - 1],
+                    ]);
+                }
+            }
+        } else {
+            setFollowingUsers([]);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [followingUsersFromStore]);
 
     const handleViewChangeSuggestedUsers = () => {
         setIsSeeAll((prev) => {
@@ -153,25 +234,30 @@ const Sidebar = () => {
     };
 
     return (
-        <aside className={cx('wrapper')}>
+        <aside
+            className={cx('wrapper', {
+                [styles.large]: large,
+                [styles.medium]: medium,
+            })}
+        >
             <Menu>
                 <MenuItem
                     to={config.routes.home}
                     icon={<HomeIcon />}
                     activeIcon={<HomeActiveIcon />}
-                    title='For You'
+                    title={FOR_YOU}
                 />
                 <MenuItem
                     to={config.routes.following}
                     icon={<UsersGroupIcon />}
                     activeIcon={<UsersGroupActiveIcon />}
-                    title='Following'
+                    title={FOLLWING}
                 />
                 <MenuItem
                     to={config.routes.live}
                     icon={<LiveBigIcon width='32' height='32' />}
                     activeIcon={<LiveBigActiveIcon />}
-                    title='LIVE'
+                    title={LIVE}
                 />
             </Menu>
             {/* suggested to login */}
@@ -183,23 +269,48 @@ const Sidebar = () => {
                     </Button>
                 </div>
             )}
-            <SuggestedAccounts
-                label='Suggested accounts'
-                emptyLabel='Suggested accounts will appear here'
-                show
-                data={suggestedUsers}
-                onViewChange={handleViewChangeSuggestedUsers}
-                isSeeAll={isSeeAll.suggested}
-            />
-            <SuggestedAccounts
-                label='Following accounts'
-                emptyLabel='Accounts you follow will appear here'
-                data={followingUsers}
-                onViewChange={handleViewChangeFollowingUsers}
-                isSeeAll={isSeeAll.following}
-            />
+            {pathname.indexOf('/live') === -1 && suggested && (
+                <SuggestedAccounts
+                    label={SUGGESTED_LIST_LABEL}
+                    emptyLabel={SUGGESTED_LIST_EMPTY_NOTICE}
+                    show
+                    data={suggestedUsers}
+                    onViewChange={handleViewChangeSuggestedUsers}
+                    isSeeAll={isSeeAll.suggested}
+                />
+            )}
+            {token &&
+                Object.keys(user).length > 0 &&
+                pathname.indexOf('/live') === -1 &&
+                following && (
+                    <SuggestedAccounts
+                        label={FOLLOWING_LIST_LABEL}
+                        emptyLabel={FOLLOWING_LIST_EMPTY_NOTICE}
+                        data={followingUsers}
+                        onViewChange={handleViewChangeFollowingUsers}
+                        isSeeAll={isSeeAll.following}
+                    />
+                )}
+            {pathname.indexOf('/live') !== -1 && (
+                <SuggestedAccounts
+                    label={SUGGESTED_HOST}
+                    emptyLabel={SUGGESTED_HOST_EMPTY_NOTICE}
+                    data={suggestedUsers}
+                    onViewChange={handleViewChangeSuggestedUsers}
+                    isSeeAll={isSeeAll.suggested}
+                />
+            )}
+            {/* discover */}
         </aside>
     );
+};
+
+Sidebar.propTypes = {
+    large: PropTypes.bool,
+    medium: PropTypes.bool,
+    suggested: PropTypes.bool,
+    following: PropTypes.bool,
+    discover: PropTypes.bool,
 };
 
 export default Sidebar;

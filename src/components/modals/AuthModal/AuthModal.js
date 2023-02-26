@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useAuthModalContext } from '~/contexts/AuthModalContext/constants';
-import useAuthModal from '~/hooks/useModal';
+import useModal from '~/hooks/useModal';
 
 import PrimaryModal from '../PrimaryModal';
 import styles from './AuthModal.module.scss';
@@ -14,7 +14,7 @@ const AuthModal = () => {
     const [backBtn, setBackBtn] = React.useState(false);
     const { currentContent, setCurrentContent, initContent, SignUpContent, AUTH_TYPES } =
         useAuthModalContext();
-    const { closeAuthModal } = useAuthModal();
+    const { closeAuthModal } = useModal();
 
     React.useEffect(() => {
         if (currentContent.length < 2) {
@@ -24,6 +24,12 @@ const AuthModal = () => {
         }
     }, [currentContent]);
 
+    const POLICY = `By continuing, you agree to TikTok’s
+    <a target='_blank' href='policy'>Terms of Service</a>
+    and confirm that you have read
+TikTok’s
+    <a href='policy' target='_blank' >Privacy Policy</a>
+    `;
     const content = currentContent[currentContent.length - 1].content;
     const footerTexts = currentContent[currentContent.length - 1].footer_texts;
     const title = currentContent[currentContent.length - 1].title;
@@ -89,8 +95,13 @@ const AuthModal = () => {
             backBtn={[backBtn, handleBackBtnClick]}
             visible={authModal}
         >
-            <h2 className={cx('title')}>{label || title}</h2>
-            {render()}
+            <div className={cx('modal-body')}>
+                <h2 className={cx('title')}>{label || title}</h2>
+                {render()}
+                {type === AUTH_TYPES.signUp && (
+                    <p className={cx('policy')} dangerouslySetInnerHTML={{ __html: POLICY }}></p>
+                )}
+            </div>
         </PrimaryModal>
     );
 };

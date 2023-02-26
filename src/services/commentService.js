@@ -1,12 +1,15 @@
 import * as httpRequest from '~/utils/httpRequest';
 
 const getComments = async (videoID) => {
-    try {
-        const res = await httpRequest.get(`videos/${videoID}/comments`);
-        return res.data;
-    } catch (error) {
-        console.log(error);
-    }
+    return new Promise(async (resolve, reject) => {
+        try {
+            const res = await httpRequest.get(`videos/${videoID}/comments`);
+            resolve(res.data);
+        } catch (error) {
+            console.log(error);
+            reject(error);
+        }
+    });
 };
 
 const createComment = async (videoID, comment) => {

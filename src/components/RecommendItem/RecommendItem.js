@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Video from '~/components/Video';
 import { descriptionFormater, numberFormater } from '~/helpers';
 import useAuthModal from '~/hooks/useModal';
@@ -21,6 +21,7 @@ import { follow, unfollow } from '~/store/slices/followSlice';
 const cx = classNames.bind(styles);
 
 const RecommendItem = ({ data }) => {
+    const { pathname } = useLocation();
     const dispatch = useDispatch();
     const [ref, inView] = useInView({
         threshold: 0.5,
@@ -130,7 +131,8 @@ const RecommendItem = ({ data }) => {
                         src={data.file_url}
                         ref={videoRef}
                         poster={data.thumb_url}
-                        to={`@${data.user.nickname}/video/${data.uuid}`}
+                        to={`/@${data.user.nickname}/video/${data.uuid}`}
+                        state={{ from: pathname }}
                     />
 
                     <div className={cx('video-features')}>
@@ -168,19 +170,21 @@ const RecommendItem = ({ data }) => {
                     </div>
                 </div>
             </div>
-            <Button
-                outline={!followingUsers.some((user) => user.id === data.user.id)}
-                small
-                className={cx('follow-btn')}
-                onClick={() => {
-                    const followState = data.user.is_followed;
-                    handleFollowUser(followState, data.user.id);
-                }}
-            >
-                {followingUsers.some((user) => user.id === data.user.id)
-                    ? FOLLOWING_BTN_LABEL
-                    : FOLLOW_BTN_LABEL}
-            </Button>
+            {data.user.id !== user.id && (
+                <Button
+                    outline={!followingUsers.some((user) => user.id === data.user.id)}
+                    small
+                    className={cx('follow-btn')}
+                    onClick={() => {
+                        const followState = data.user.is_followed;
+                        handleFollowUser(followState, data.user.id);
+                    }}
+                >
+                    {followingUsers.some((user) => user.id === data.user.id)
+                        ? FOLLOWING_BTN_LABEL
+                        : FOLLOW_BTN_LABEL}
+                </Button>
+            )}
         </div>
     );
 };

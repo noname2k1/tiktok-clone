@@ -6,14 +6,10 @@ import { CheckIcon } from '~/components/icons';
 import Image from '~/components/Image';
 import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
-const AccountItem = ({ data }) => {
+const AccountItem = ({ data, ...props }) => {
     return (
-        <Link to={`/@${data.nickname}`} className={cx('wrapper')}>
-            <Image
-                className={cx('avatar')}
-                alt={data.full_name}
-                src={data.avatar}
-            />
+        <Link to={`/@${data.nickname}`} className={cx('wrapper')} {...props}>
+            <Image className={cx('avatar')} alt={data.full_name} src={data.avatar} />
             <div className={cx('infor')}>
                 <h4 className={cx('name')}>
                     <span>{data.full_name}</span>

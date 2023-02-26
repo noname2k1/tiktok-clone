@@ -20,6 +20,9 @@ const modalSlice = createSlice({
             enabled: false,
             title: '',
         },
+        editProfileModal: {
+            enabled: false,
+        },
     },
     reducers: {
         closeAllModals: (state) => {
@@ -46,10 +49,22 @@ const modalSlice = createSlice({
                 ...action.payload,
             };
         },
+        setEditProfileModal: (state, action) => {
+            state.editProfileModal = {
+                ...state.editProfileModal,
+                ...action.payload,
+            };
+        },
     },
 });
 
 const { actions, reducer } = modalSlice;
-export const { closeAllModals, setAuthModal, setEditModal, setDeleteModal, setReportModal } =
-    actions;
+export const {
+    closeAllModals,
+    setAuthModal,
+    setEditModal,
+    setDeleteModal,
+    setReportModal,
+    setEditProfileModal,
+} = actions;
 export default reducer;

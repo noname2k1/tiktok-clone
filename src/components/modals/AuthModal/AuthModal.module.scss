@@ -40,3 +40,26 @@
     font-size: 1.5rem;
     font-weight: 600;
 }
+
+.modal-body {
+    padding: 0 50px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+p.policy {
+    margin-top: auto;
+    padding: 16px 30px 0;
+    font-size: 1.2rem;
+    line-height: 15px;
+    text-align: center;
+    width: 375px;
+    color: var(--lighter-color) !important;
+    a {
+        color: var(--text-color) !important;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}

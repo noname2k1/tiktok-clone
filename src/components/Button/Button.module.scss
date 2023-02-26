@@ -2,7 +2,7 @@
     font-size: 1.6rem;
     font-weight: 700;
     min-width: 100px;
-    padding: 9px 16px;
+    padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
     background-color: var(--bg-color, #fff);
@@ -47,6 +47,16 @@
     border-radius: 4px;
 }
 
+.flex1 {
+    flex: 1 1;
+}
+
+.square {
+    width: 36px;
+    min-width: unset;
+    margin-left: 8px !important;
+}
+
 //size
 .small {
     min-width: 88px;
@@ -61,6 +71,12 @@
 .large {
     min-width: 120px;
     padding: 14px 16px;
+    width: 164px;
+    word-break: break-all;
+}
+
+.long {
+    width: 80%;
 }
 
 .icon {

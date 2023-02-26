@@ -15,12 +15,15 @@
 .inner {
     height: 100%;
     max-width: var(--default-layout-width, 1150px);
-    // background: #000;
     display: flex;
     align-items: center;
     padding: 0 var(--default-layout-spacer);
     justify-content: space-between;
     margin: 0 auto;
+    &.full {
+        margin: 0;
+        max-width: 100%;
+    }
 }
 
 .logo {
@@ -32,6 +35,10 @@
 .actions {
     display: flex;
     align-items: center;
+}
+
+.notification-wrapper {
+    position: relative;
 }
 
 .more-btn {
@@ -48,14 +55,32 @@
 
 .action-btn {
     font-size: 2.2rem;
-    color: #161823;
+    color: var(--nickname-color);
     background: transparent;
-    margin-left: 16px;
+    // margin-left: 16px;
     height: 32px;
     width: 32px;
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: center;
+    @media screen and (max-width: 280px) {
+        display: none;
+    }
+}
+.separator {
+    height: 100%;
+    width: 16px;
+}
+
+.get-coins-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .text {
+        margin-left: 8px;
+        margin-top: 3px;
+    }
 }
 .user-avatar {
     object-fit: cover;
@@ -64,4 +89,32 @@
     height: 32px;
     margin-left: 24px;
     cursor: pointer;
+    border: 1px solid var(--border-color);
+}
+
+@media screen and (max-width: 620px) {
+    .separator:nth-child(3) {
+        display: none;
+    }
+    .get-coins-btn {
+        display: none;
+    }
+    .user-avatar {
+        margin-left: 0;
+    }
+    .upload-btn {
+        min-width: unset;
+        span:first-child {
+            margin-right: 0;
+        }
+        span:nth-child(2) {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .upload-btn {
+        margin-left: 10px;
+    }
 }

@@ -13,9 +13,12 @@
 }
 
 .wrapper {
+    display: flex;
+    flex-direction: column;
     background-color: var(--bg-color);
     border-radius: 8px;
-    width: 483px;
+    min-width: 483px;
+    overflow: hidden;
     .modal-header,
     .modal-footer {
         display: flex;
@@ -23,14 +26,24 @@
         justify-content: space-between;
         padding: 20px;
     }
+    .modal-header {
+        &.border {
+            border-bottom: 1px solid var(--border-color);
+        }
+    }
     .modal-footer {
-        margin-top: 20px;
+        margin-top: auto;
         border-top: 1px solid var(--border-color);
         justify-content: center;
     }
-    max-height: 693px;
+    min-height: 693px;
     transform: scale(0.1);
     transition: transform 0.2s ease;
+    &:not(.modal-footer) {
+        .modal-body {
+            max-height: 80vh;
+        }
+    }
 }
 
 .visible {
@@ -65,8 +78,12 @@
 }
 
 .modal-body {
-    margin: 0 50px;
     flex: 1 1 auto;
+    display: flex;
+    max-height: 67vh;
+    overflow-y: auto;
+    flex-direction: column;
+    position: relative;
 }
 
 .footer-item {

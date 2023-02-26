@@ -15,6 +15,8 @@ const PrimaryModal = ({
     closeFunc = () => {},
     visible = false,
     footerItemFunc = () => {},
+    footerComponent,
+    headerBorder = false,
 }) => {
     // display back btn if backBtn array length > 1
     const [value, backFunc] = backBtn;
@@ -23,7 +25,7 @@ const PrimaryModal = ({
         <div className={cx('overlay', { visible })}>
             <div className={cx('wrapper')}>
                 {/* header begin */}
-                <header className={cx('modal-header')}>
+                <header className={cx('modal-header', { border: headerBorder })}>
                     {value && (
                         <button className={cx('back-btn')} onClick={backFunc}>
                             <ChevronLeftIcon height='24' width='24' />
@@ -55,6 +57,9 @@ const PrimaryModal = ({
                         ))}
                     </footer>
                 )}
+                {footerComponent && (
+                    <footer className={cx('modal-footer')}>{footerComponent}</footer>
+                )}
                 {/* footer end */}
             </div>
         </div>
@@ -70,6 +75,8 @@ PrimaryModal.propTypes = {
     closeFunc: PropTypes.func,
     visible: PropTypes.bool,
     footerItemFunc: PropTypes.func,
+    footerComponent: PropTypes.node,
+    headerBorder: PropTypes.bool,
 };
 
 export default PrimaryModal;

@@ -18,7 +18,7 @@ const Toast = () => {
         if (enabled) {
             appearId = setTimeout(() => {
                 // setDisappear(true);
-                dispatch(setToast({ enabled: false }));
+                dispatch(setToast({ enabled: false, content: '' }));
             }, apperLife);
         }
         return () => {

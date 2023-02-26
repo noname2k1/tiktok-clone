@@ -41,7 +41,7 @@ const ButtonSC = styled.button`
 `;
 
 const Video = React.forwardRef(
-    ({ src, to, small = true, medium = false, large = false, poster }, ref) => {
+    ({ src, to, small = true, medium = false, large = false, poster, state }, ref) => {
         const videoRef = React.useRef();
         const [isPlaying, setIsPlaying] = React.useState(true);
         const [isMuted, setIsMuted] = React.useState(true);
@@ -222,6 +222,7 @@ const Video = React.forwardRef(
                                 <Link
                                     to={`/@${videos[prevVideoIndex].user.nickname}/video/${videos[prevVideoIndex].uuid}`}
                                     replace={true}
+                                    state={state}
                                 >
                                     <ArrowLargeIcon />
                                 </Link>
@@ -232,6 +233,7 @@ const Video = React.forwardRef(
                                 <Link
                                     to={`/@${videos[nextVideoIndex].user.nickname}/video/${videos[nextVideoIndex].uuid}`}
                                     replace={true}
+                                    state={state}
                                 >
                                     <ArrowLargeIcon />
                                 </Link>
@@ -257,7 +259,12 @@ const Video = React.forwardRef(
         );
         if (!to) {
             return (
-                <div className={classNames}>
+                <div
+                    className={classNames}
+                    style={{
+                        backgroundImage: `url(${poster})`,
+                    }}
+                >
                     <video
                         title='video'
                         src={src}
@@ -276,7 +283,7 @@ const Video = React.forwardRef(
         }
         return (
             <div className={classNames}>
-                <Link to={to}>
+                <Link to={to} state={state}>
                     <video
                         title='video'
                         src={src}
@@ -302,6 +309,7 @@ Video.propTypes = {
     medium: PropTypes.bool,
     large: PropTypes.bool,
     poster: PropTypes.string,
+    state: PropTypes.object,
 };
 
 export default Video;

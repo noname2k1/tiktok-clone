@@ -14,26 +14,27 @@ const Home = () => {
     const videoSlice = useSelector((state) => state.video);
     // const [videos, setVideos] = React.useState([]);
     const [currentVideosPage, setCurrentVideosPage] = React.useState(1);
-    const [loading, setLoading] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
     const setVideosToVideoStore = (videos, totalPages) => {
         dispatch(setVideos(videos));
         dispatch(setTotalPages(totalPages));
     };
 
     React.useEffect(() => {
-        setLoading(true);
+        window.scrollTo(0, 0);
         videoService
             .getVideos(1)
             .then((res) => {
                 setLoading(false);
                 const initVideos = res.data;
-                const totalPages = res.meta.pagination.total_pages;
+                const totalPages = res.meta?.pagination.total_pages;
                 setVideosToVideoStore(initVideos, totalPages);
             })
             .catch((error) => {
-                setLoading(false);
                 console.log(error);
+                setLoading(false);
             });
+        document.title = 'Tiktok - Make Your Day';
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     // console.log('videoSlice', videoSlice);
@@ -55,8 +56,8 @@ const Home = () => {
                             setCurrentVideosPage(currentVideosPage + 1);
                     })
                     .catch((error) => {
-                        setLoading(false);
                         console.log(error);
+                        setLoading(false);
                     });
             }
         };
@@ -71,9 +72,8 @@ const Home = () => {
 
     return (
         <div className={cx('wrapper')}>
-            {videoSlice.videos.map((video) => (
-                <RecommendItem key={video.id} data={video} />
-            ))}
+            {!loading &&
+                videoSlice.videos.map((video) => <RecommendItem key={video.id} data={video} />)}
             {loading && <LoadingEffect />}
         </div>
     );

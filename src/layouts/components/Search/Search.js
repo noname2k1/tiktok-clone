@@ -30,6 +30,10 @@ const Search = () => {
         setSearchResults([]);
     };
 
+    const handleCloseSearch = () => {
+        handleClear();
+    };
+
     React.useEffect(() => {
         if (!debouncedSearchValue.trim() || !searchValue.trim()) {
             setSearchResults([]);
@@ -49,15 +53,15 @@ const Search = () => {
         <div>
             <TippyHeadLess
                 render={(attrs) => (
-                    <div
-                        className={cx('search-result')}
-                        tabIndex='-1'
-                        {...attrs}
-                    >
+                    <div className={cx('search-result')} tabIndex='-1' {...attrs}>
                         <PopperWrapper>
                             <h4 className={cx('search-title')}>Accounts</h4>
                             {searchResults.map((result) => (
-                                <AccountItem key={result.id} data={result} />
+                                <AccountItem
+                                    key={result.id}
+                                    data={result}
+                                    onClick={handleCloseSearch}
+                                />
                             ))}
                         </PopperWrapper>
                     </div>
@@ -77,18 +81,11 @@ const Search = () => {
                     />
                     <div className={cx('pending')}>
                         {searchValue && !loading && (
-                            <button
-                                className={cx('clear')}
-                                onClick={handleClear}
-                            >
+                            <button className={cx('clear')} onClick={handleClear}>
                                 <CloseIcon />
                             </button>
                         )}
-                        {loading && (
-                            <SpinnerIcon
-                                className={cx('search-loading-icon')}
-                            />
-                        )}
+                        {loading && <SpinnerIcon />}
                     </div>
 
                     <button className={cx('search-btn')}>

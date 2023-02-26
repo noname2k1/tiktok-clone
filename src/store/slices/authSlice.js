@@ -19,9 +19,15 @@ const authSlice = createSlice({
             state.user = {};
             delete httpRequest.defaults.headers.common['Authorization'];
         },
+        setCurrentUser: (state, action) => {
+            state.user = {
+                ...state.user,
+                ...action.payload,
+            };
+        },
     },
 });
 
 const { actions, reducer } = authSlice;
-export const { login, logout } = actions;
+export const { login, logout, setCurrentUser } = actions;
 export default reducer;

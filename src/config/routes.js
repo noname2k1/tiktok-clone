@@ -10,10 +10,12 @@ const routes = {
     feedback: '/feedback',
     following: '/following',
     live: '/live',
+    liveStream: '@:nickname/live',
     search: '/search',
     upload: '/upload',
     tag: 'tag/:tag',
     video: '@:nickname/video/:videoId',
+    messages: '/messages',
 };
 
 export default routes;

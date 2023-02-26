@@ -17,10 +17,11 @@ const Logout = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    console.log('location', location);
+    // console.log('location', location);
     React.useEffect(() => {
         dispatch(logout());
         setTimeout(() => {
+            localStorage.removeItem('persist:root');
             navigate(location.state || config.routes.home);
         }, 1000);
         // eslint-disable-next-line react-hooks/exhaustive-deps

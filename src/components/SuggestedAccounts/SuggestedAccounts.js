@@ -6,21 +6,12 @@ import AccountItem from './AccountItem';
 
 const cx = classNames.bind(styles);
 
-const SuggestedAccounts = ({
-    label,
-    show,
-    data = [],
-    onViewChange,
-    isSeeAll,
-    emptyLabel,
-}) => {
+const SuggestedAccounts = ({ label, show, data = [], onViewChange, isSeeAll, emptyLabel }) => {
     return (
         <div className={cx('wrapper')}>
             <p className={cx('label')}>{label}</p>
             {data.length > 0 &&
-                data.map((user) => (
-                    <AccountItem key={user.id} show={show} user={user} />
-                ))}
+                data.map((user) => <AccountItem key={user.id} show={show} user={user} />)}
             {data.length === 0 && <p className={cx('empty')}>{emptyLabel}</p>}
             {data.length > 0 && (
                 <p className={cx('see-label')} onClick={onViewChange}>

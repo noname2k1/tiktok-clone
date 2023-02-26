@@ -1,0 +1,7 @@
+{
+    "name": "tiktok-clone-by-ninhnam",
+    "build": {
+        "command": "npm run build",
+        "output": "build"
+    }
+}

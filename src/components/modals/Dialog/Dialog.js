@@ -16,7 +16,7 @@ const Dialog = ({ title, options = [], visible = false, children }) => {
                     <div className={cx('dialog-options')}>
                         {options.map((option, index) => (
                             <div key={index} className={cx('option')} onClick={option.onClick}>
-                                {option.label}
+                                <span style={option.style}>{option.label}</span>
                             </div>
                         ))}
                     </div>

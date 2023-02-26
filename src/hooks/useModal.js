@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthModal, setEditModal, setDeleteModal } from '~/store/slices/modalSlice';
+import {
+    setAuthModal,
+    setEditModal,
+    setDeleteModal,
+    setEditProfileModal,
+} from '~/store/slices/modalSlice';
 import useScrollLock from './useScrollLock';
 
 const useModal = () => {
@@ -22,6 +27,9 @@ const useModal = () => {
         if (token && Object.keys(user).length > 0) {
             dispatch(setEditModal({ enabled: true, title, id, type }));
             lockScroll();
+        } else {
+            dispatch(setAuthModal(true));
+            lockScroll();
         }
     };
 
@@ -34,12 +42,30 @@ const useModal = () => {
         if (token && Object.keys(user).length > 0) {
             dispatch(setDeleteModal({ enabled: true, title, id, type }));
             lockScroll();
+        } else {
+            dispatch(setAuthModal(true));
+            lockScroll();
         }
     };
 
     const closeDeleteModal = () => {
         dispatch(setDeleteModal({ enabled: false, title: '', id: '', type: '' }));
         unlockScroll();
+    };
+    const openEditProfileModal = () => {
+        if (token && Object.keys(user).length > 0) {
+            dispatch(setEditProfileModal({ enabled: true }));
+            lockScroll();
+        } else {
+            dispatch(setAuthModal(true));
+            lockScroll();
+        }
+    };
+
+    const closeEditProfileModal = (resetForm, form) => {
+        dispatch(setEditProfileModal({ enabled: false }));
+        unlockScroll();
+        if (resetForm && form) resetForm(form);
     };
 
     return {
@@ -49,6 +75,8 @@ const useModal = () => {
         closeEditModal,
         openDeleteModal,
         closeDeleteModal,
+        openEditProfileModal,
+        closeEditProfileModal,
     };
 };
 

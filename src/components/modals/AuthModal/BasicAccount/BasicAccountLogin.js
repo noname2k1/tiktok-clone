@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './BasicAccount.module.scss';
-import Input from '~/components/Input';
+import TextField from '~/components/TextField';
 import Button from '~/components/Button';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -12,7 +12,7 @@ import { setToast } from '~/store/slices/globalComponentSlice';
 import { useAuthModalContext } from '~/contexts/AuthModalContext/constants';
 import { useLocation, useNavigate } from 'react-router-dom';
 import config from '~/config';
-import useAuthModal from '~/hooks/useModal';
+import useModal from '~/hooks/useModal';
 
 const cx = classNames.bind(styles);
 
@@ -20,18 +20,22 @@ const BasicAccountLogin = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const { closeAuthModal } = useAuthModal();
+    const { closeAuthModal } = useModal();
     const { setCurrentContent, initContent } = useAuthModalContext();
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState('');
     const [btnDisabled, setBtnDisabled] = React.useState(true);
 
+    const EMAIL_LABEL_TEXT = 'Email';
+    const LOGIN_WITH_PHONE_TEXT = 'Login with phone';
+    const LOGIN_BTN_TEXT = 'Log in';
+    const FORGOT_PASSWORD_TEXT = 'Forgot password?';
     const LOGIN_SUCCESS_MESSAGE = 'Login successfully';
     const LOGIN_FAILED_MESSAGE = 'Login failed, please try again';
 
     const {
         handleSubmit,
-        formState: { errors, isDirty, dirtyFields },
+        formState: { isValid, errors, isDirty, dirtyFields },
         control,
     } = useForm({
         defaultValues: {
@@ -42,12 +46,12 @@ const BasicAccountLogin = () => {
     const { email, password } = dirtyFields;
 
     React.useEffect(() => {
-        if (isDirty && email && password) {
+        if (isValid && isDirty && email && password) {
             setBtnDisabled(false);
         } else {
             setBtnDisabled(true);
         }
-    }, [email, password, isDirty]);
+    }, [email, password, isDirty, isValid]);
 
     const handleLogin = (token, user) => {
         const payload = {
@@ -138,12 +142,12 @@ const BasicAccountLogin = () => {
     return (
         <form className={cx('wrapper')}>
             <div className={cx('description')}>
-                <span className={cx('label')}>Email</span>
-                <span className={cx('switch')}>Log in with phone</span>
+                <span className={cx('label')}>{EMAIL_LABEL_TEXT}</span>
+                <span className={cx('switch')}>{LOGIN_WITH_PHONE_TEXT}</span>
             </div>
             {inputList.map((input, index) => (
                 <div key={index} className={cx('input-wrapper')} onClick={handleRemoveError}>
-                    <Input
+                    <TextField
                         type={input.type}
                         name={input.name}
                         placeholder={input.placeHolder}
@@ -156,7 +160,7 @@ const BasicAccountLogin = () => {
                     )}
                 </div>
             ))}
-            <div className={cx('forgot-password')}>Forgot password?</div>
+            <div className={cx('forgot-password')}>{FORGOT_PASSWORD_TEXT}</div>
             {error && <p className={cx('error-after-submit')}>{error}</p>}
             <Button
                 primary
@@ -164,7 +168,7 @@ const BasicAccountLogin = () => {
                 className={cx('button')}
                 onClick={handleClickSubmitBtn}
             >
-                Log in
+                {LOGIN_BTN_TEXT}
             </Button>
             {loading && <LoadingEffect />}
         </form>

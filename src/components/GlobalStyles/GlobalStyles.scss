@@ -3,6 +3,7 @@
     --primary-color: #fe2c55;
     --text-color: #000;
     --nickname-color: #161823;
+    --un-active-color: #1618231a;
     --light-color: #161823bf;
     --text-color-secondary: #fff;
     --border-color: #1618231f;
@@ -14,7 +15,7 @@
     --liked-color: #fe2c55;
     --lighter-color: rgba(22, 24, 35, 0.5);
     --bg-color: rgba(255, 255, 255, 1);
-    --bg-color-secondary: #f7f7f7;
+    --bg-color-secondary: #f8f8f8;
     --input-color: rgb(22, 24, 35);
     --input-placeholder-color: rgba(22, 24, 35, 0.75);
     --hover-bg: rgba(22, 24, 35, 0.05);
@@ -26,6 +27,10 @@
     --focus-border-color: rgba(22, 24, 35, 0.2);
     --disabled-btn-color: rgba(22, 24, 35, 0.34);
     --video-overlay-bg: rgba(22, 24, 35, 0.9);
+    --large-video-bg: #25252599;
+    --live-nav-type-bg: #f1f1f1;
+    --footer-item-color: #aaaaaa;
+    --box-shadow: #0000000f 0px 2px 8px;
     --success-color: #00c853;
     --error-color: #ff0000;
     --btn-in-video-bg: #54545480;
@@ -33,12 +38,15 @@
     --default-layout-header-height: 60px;
     --default-layout-width: 1150px;
     --sidebar-width: 356px;
+    --sidebar-width-smaller: 232px;
     --recomment-item-width: 692px;
     --recomment-item-smaller-width: 624px;
     --mobile-sidebar-width: 55px;
     --default-layout-spacer: 24px;
+    --full-layout-spacer: 14px;
     --video-width: 270px;
-    --medium-video-width: 406px;
+    --chat-room-width: 340px;
+    --medium-video-width: 440px;
     --video-height: calc(450px + (100vw - 768px) / 1152 * 100);
     --font-family: 'Proxima Nova', Arial, Tahoma, PingFangSC, sans-serif;
     --secondary-font: SofiaPro, Arial, Tahoma, PingFangSC, sans-serif;
@@ -132,4 +140,24 @@ button,
 input {
     outline: none !important;
     border: none;
+}
+
+.loading-icon {
+    // animation: name duration timing-function delay iteration-count direction fill-mode;
+    animation: 1s linear 0s infinite normal none running loading-circle-animate;
+}
+
+@keyframes loading-circle-animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 840px) {
+    .search {
+        display: none;
+    }
 }

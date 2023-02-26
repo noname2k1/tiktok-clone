@@ -1,0 +1,66 @@
+.suggested-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+}
+.suggested-user {
+    cursor: pointer;
+    width: calc(100% / 3.2);
+    margin: 0 0 1.5rem 1.5rem;
+    display: flex;
+    align-items: flex-end;
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+        margin-top: 1.5rem;
+    }
+    justify-content: center;
+    height: 40vh;
+    background-color: var(--overlay-bg);
+    border-radius: 8px;
+    @media screen and (max-width: 800px) {
+        width: calc(100% / 2.1);
+        &:nth-child(1),
+        &:nth-child(2) {
+            margin-top: 1.5rem;
+        }
+        height: 50vh;
+    }
+    @media screen and (max-width: 710px) {
+        width: calc(100%);
+        margin-right: 1.5rem;
+        &:nth-child(1),
+        &:nth-child(2) {
+            margin-top: 1.5rem;
+        }
+        height: 100vh;
+    }
+}
+
+.user-info {
+    margin-bottom: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: var(--bg-color);
+    font-weight: 600;
+    font-size: 1.8rem;
+    width: 100%;
+    .name {
+        font-size: 1.8rem;
+        font-weight: 600;
+        @media screen and (max-width: 710px) {
+            font-size: 3rem;
+        }
+    }
+    .nickname {
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        @media screen and (max-width: 710px) {
+            font-size: 3rem;
+        }
+    }
+}

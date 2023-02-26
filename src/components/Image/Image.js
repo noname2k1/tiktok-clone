@@ -12,27 +12,35 @@ const Image = React.forwardRef(
             small = false,
             medium = false,
             large = false,
+            extraLarge = false,
             rounded = false,
             fallback: customFallback = images.noImage,
             ...props
         },
         ref
     ) => {
-        const [fallback, setFallback] = React.useState('');
+        const [srcImage, setSrcImage] = React.useState(src);
+        // console.log('srcImage', srcImage);
         const handleError = () => {
-            setFallback(customFallback);
+            setSrcImage(customFallback);
         };
-        // console.log('fallback', images.noImage);
+
+        React.useEffect(() => {
+            setSrcImage(src);
+        }, [src]);
+
         return (
             <img
-                src={fallback || src}
+                src={srcImage}
                 alt={alt}
                 ref={ref}
-                className={classNames(styles.wrapper, className, {
+                className={classNames(styles.wrapper, {
                     [styles.small]: small,
                     [styles.medium]: medium,
                     [styles.large]: large,
+                    [styles['extra-large']]: extraLarge,
                     [styles.rounded]: rounded,
+                    [className]: className,
                 })}
                 {...props}
                 onError={handleError}
@@ -49,6 +57,7 @@ Image.propTypes = {
     small: PropTypes.bool,
     medium: PropTypes.bool,
     large: PropTypes.bool,
+    extraLarge: PropTypes.bool,
     rounded: PropTypes.bool,
 };
 

@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import {
     DarkModeIcon,
     HelpIcon,
@@ -11,6 +12,8 @@ import {
 } from '~/components/icons';
 
 function useGetMenuContent() {
+    const { user } = useSelector((state) => state.auth);
+    const myNickname = user.nickname;
     const DEFAULT_MENU_ITEMS = [
         {
             title: 'English',
@@ -50,7 +53,7 @@ function useGetMenuContent() {
         {
             title: 'View profile',
             icon: <PersonIcon />,
-            to: '/my-profile',
+            to: `/@${myNickname}`,
         },
         {
             title: 'Get Coins',

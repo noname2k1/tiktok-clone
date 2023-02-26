@@ -24,17 +24,29 @@ const getFollowingUsers = async (page = 1, perPage = 5) => {
         });
         return res.data;
     } catch (error) {
-        console.log(error);
+        // console.log(error);
+        throw error;
     }
 };
 
 const getAnUser = async (nickname) => {
     try {
-        const res = await httpRequest.get(`users/${nickname}`);
+        const res = await httpRequest.get(`users/@${nickname}`);
         return res.data;
     } catch (error) {
-        console.log(error);
+        // console.log(error);
+        throw error;
     }
 };
 
-export { getSuggestedUsers, getFollowingUsers, getAnUser };
+const getMyProfile = async () => {
+    try {
+        const res = await httpRequest.get('auth/me');
+        return res.data;
+    } catch (error) {
+        // console.log(error);
+        throw error;
+    }
+};
+
+export { getSuggestedUsers, getFollowingUsers, getAnUser, getMyProfile };

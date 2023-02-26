@@ -10,7 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-const Menu = ({ items = [], hideOnClick = false, children }) => {
+const Menu = ({ items = [], hideOnClick = false, children, ...props }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const [history, setHistory] = React.useState([{ data: items }]);
@@ -65,6 +65,7 @@ const Menu = ({ items = [], hideOnClick = false, children }) => {
             hideOnClick={hideOnClick}
             render={renderWrapper}
             onHide={handleReturnToFirstLevel}
+            {...props}
         >
             {children}
         </Tippy>

@@ -1,0 +1,22 @@
+.wrapper {
+}
+
+.container {
+    padding: 0 var(--full-layout-spacer);
+    padding-right: 0;
+    min-height: 1000px;
+    max-width: 100%;
+    display: flex;
+    margin-top: var(--default-layout-header-height);
+    @media screen and (max-width: 1160px) {
+        padding: 0;
+    }
+}
+
+.content {
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    // padding: 32px 0;
+    margin-left: 8px;
+}

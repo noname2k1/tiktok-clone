@@ -36,11 +36,13 @@ const Comments = ({ commentsCount, hostID }) => {
         commentService
             .getComments(videoId)
             .then((comments) => {
+                // console.log(comments);
                 dispatch(setComments(comments));
                 setLoading(false);
             })
             .catch((err) => {
                 console.log(err);
+                dispatch(setComments([]));
                 setLoading(false);
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps

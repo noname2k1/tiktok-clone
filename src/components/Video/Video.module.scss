@@ -25,7 +25,7 @@
 .video-overlay {
     position: absolute;
     inset: 0;
-    background-color: transparent;
+    background-color: var(--video-overlay-bg);
     z-index: 1;
 }
 
@@ -89,6 +89,8 @@ input[type='range'] {
     video {
         width: var(--medium-video-width);
         object-fit: fill;
+        position: absolute;
+        z-index: 2;
     }
     &.wrapper {
         border-radius: 0;

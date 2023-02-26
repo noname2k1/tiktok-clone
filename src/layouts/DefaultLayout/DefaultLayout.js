@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import styles from './DefaultLayout.module.scss';
 import classNames from 'classnames/bind';
+import GotoTop from '~/components/GotoTop';
 const cx = classNames.bind(styles);
 const DefaultLayout = ({ children }) => {
     return (
@@ -13,6 +14,7 @@ const DefaultLayout = ({ children }) => {
                 <Sidebar />
                 <div className={cx('content')}>{children}</div>
             </div>
+            <GotoTop />
         </div>
     );
 };

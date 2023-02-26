@@ -9,6 +9,20 @@
 .label {
 }
 .switch {
+    cursor: pointer;
+    color: var(--light-color);
+    font-size: 1.4rem;
+    transition: color 0.2s ease-in-out;
+    &:hover {
+        text-decoration: underline;
+        color: var(--text-color);
+    }
+}
+
+.input-wrapper {
+    & + .input-wrapper {
+        margin-top: 10px;
+    }
 }
 
 .forgot-password {
@@ -36,4 +50,41 @@
 
 .error-after-submit {
     text-align: center;
+    margin-top: 20px;
+    & + .button {
+        margin-top: 10px;
+    }
+}
+
+//basic account sign up
+.validation-password {
+    header {
+        color: var(--text-color);
+        font-family: var(--font-family);
+        font-weight: 600;
+        margin: 4px 0px;
+    }
+}
+.validation-item {
+    display: flex;
+    align-items: center;
+    color: var(--suggested-label-color);
+    margin: 4px 0px;
+    font-size: 1.2rem;
+    line-height: 15px;
+    transition: color 0.2s ease-in-out;
+    &.is-valid {
+        color: var(--success-color);
+    }
+    &.is-invalid {
+        color: var(--error-color);
+    }
+}
+.validation-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2px;
+}
+.validation-text {
 }

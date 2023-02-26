@@ -4,9 +4,13 @@ import styles from './LoadingEffect.module.scss';
 
 const cx = classNames.bind(styles);
 
-const LoadingEffect = () => {
+const LoadingEffect = ({ className }) => {
     return (
-        <div className={cx('wrapper')}>
+        <div
+            className={cx('wrapper', {
+                [className]: className,
+            })}
+        >
             <div className={cx('circle')}></div>
             <div className={cx('circle')}></div>
         </div>
