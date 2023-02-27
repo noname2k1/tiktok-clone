@@ -7,6 +7,7 @@
     justify-content: space-between;
 }
 .label {
+    color: var(--text-color);
 }
 .switch {
     cursor: pointer;
@@ -26,6 +27,7 @@
 }
 
 .forgot-password {
+    color: var(--text-color);
     margin-top: 10px;
     font-size: 1.4rem;
     width: fit-content;

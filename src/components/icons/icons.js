@@ -823,13 +823,7 @@ const ClosedEyesIcon = ({ className, width = '16', height = '16' }) => {
 
 const OpenEyesIcon = ({ className, width = '16', height = '16' }) => {
     return (
-        <SVGWrapper
-            width={width}
-            height={height}
-            className={className}
-            viewBox='0 0 20 20'
-            fill='none'
-        >
+        <SVGWrapper width={width} height={height} className={className} viewBox='0 0 20 20'>
             <g
                 stroke='#161823'
                 strokeLinecap='round'
