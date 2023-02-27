@@ -17,7 +17,7 @@
     background-color: var(--live-nav-type-bg);
     width: 100px;
     height: 100%;
-border-bottom-left-radius: 20px;
+    border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     display: flex;
     align-items: center;
@@ -37,12 +37,12 @@ border-bottom-left-radius: 20px;
     }
 }
 .navigation-item {
-    background-color: var(--light-bg);
+    background-color: var(--un-active-color);
     width: 24px;
     height: 5px;
     border-radius: 4px;
     &.active {
-        background-color: var(--text-color);
+        background-color: #000;
     }
     & + .navigation-item {
         margin-left: 8px;
@@ -111,7 +111,7 @@ border-bottom-left-radius: 20px;
 
 .overlay {
     position: absolute;
-    background-color: var(--text-color);
+    background-color: var(--overlay-bg);
     inset: 0;
 }
 
@@ -141,10 +141,10 @@ border-bottom-left-radius: 20px;
         align-items: center;
         justify-content: center;
         background-color: var(--large-video-bg);
-        color: #ffffff57;
+        color: #000;
         cursor: default;
         &.active {
-            color: var(--bg-color);
+            color: #fff;
             cursor: pointer;
             &:hover {
                 background-color: #54545480;
@@ -186,14 +186,14 @@ border-bottom-left-radius: 20px;
         align-items: center;
         font-size: 2rem;
         font-weight: 600;
-        color: var(--bg-color);
+        color: var(--text-color);
         .nickname {
             margin-right: 8px;
         }
     }
     p.description {
         font-size: 1.6rem;
-        color: var(--bg-color);
+        color: var(--nickname-color);
         margin-bottom: 8px;
         max-width: 230px;
         white-space: nowrap;
@@ -219,6 +219,7 @@ border-bottom-left-radius: 20px;
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    color: #f1f1f1;
     &:hover {
         background-color: #54545480;
     }
@@ -241,7 +242,7 @@ border-bottom-left-radius: 20px;
     span {
         display: flex;
         align-items: center;
-        color: var(--bg-color);
+        color: var(--text-color);
         font-weight: 600;
         font-size: 2rem;
         svg {

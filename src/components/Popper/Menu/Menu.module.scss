@@ -3,6 +3,7 @@
     width: 223px;
     //item
     .menu-item {
+        position: relative;
         font-family: var(--font-family);
         border: none;
         margin-left: 0 !important;
@@ -14,8 +15,15 @@
         align-items: center;
         justify-content: flex-start;
         height: 42px;
+        background-color: inherit;
         &:hover {
             background-color: var(--hover-bg);
+        }
+        .dark-mode-checkbox {
+            position: absolute;
+            right: 16px;
+            z-index: 0;
+            user-select: none;
         }
     }
 }

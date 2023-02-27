@@ -11,6 +11,7 @@ import Toast from '../Toast';
 
 const GlobalComponents = () => {
     const { token } = useSelector((state) => state.auth);
+    const { darkMode } = useSelector((state) => state.globalComponent);
     React.useLayoutEffect(() => {
         const scrollBarCompensation = window.innerWidth - document.body.offsetWidth;
         document.body.style.setProperty('--scrollbar-compensation', `${scrollBarCompensation}px`);
@@ -21,6 +22,15 @@ const GlobalComponents = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    React.useLayoutEffect(() => {
+        if (darkMode) {
+            document.querySelector(':root').dataset.theme = 'dark';
+        } else {
+            document.querySelector(':root').dataset.theme = 'light';
+        }
+    }, [darkMode]);
+
     return (
         <>
             <AuthModalProvider>

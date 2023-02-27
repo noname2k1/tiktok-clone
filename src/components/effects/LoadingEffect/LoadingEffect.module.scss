@@ -23,8 +23,18 @@ $animation-duration: 1200ms;
 .circle:nth-child(2) {
     mix-blend-mode: darken;
     background: #25f4ee;
+
     margin-left: -5px;
     animation: counter-clockwise $animation-duration infinite linear;
+}
+
+[data-theme='dark'] {
+    .circle:nth-child(1) {
+        background: #fe2c55;
+    }
+    .circle:nth-child(2) {
+        background: #8ffffb;
+    }
 }
 
 @keyframes clockwise {

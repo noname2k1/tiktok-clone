@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 import {
     DarkModeIcon,
@@ -45,6 +46,7 @@ function useGetMenuContent() {
         },
         {
             title: 'Dark mode',
+            target: 'dark-mode',
             icon: <DarkModeIcon />,
         },
     ];

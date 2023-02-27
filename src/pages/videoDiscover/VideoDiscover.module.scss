@@ -25,6 +25,7 @@ $video-info-width: 544px;
 }
 
 .video-info {
+    background-color: var(--bg-color);
     width: $video-info-width;
     display: flex;
     flex-direction: column;
@@ -62,12 +63,14 @@ $video-info-width: 544px;
 }
 
 .nickname {
+    color: var(--nickname-color);
     font-family: var(--secondary-font);
     font-weight: 600;
     font-size: 1.8rem;
     line-height: 2.5rem;
 }
 .name {
+    color: var(--description-color);
     font-family: var(--font-family);
     font-size: 1.4rem;
 }
@@ -104,6 +107,7 @@ $video-info-width: 544px;
 }
 
 .description {
+    color: var(--description-color);
     font-size: 1.8rem;
     line-height: 2.5rem;
 }
@@ -171,6 +175,10 @@ $video-info-width: 544px;
 .others-item {
     margin-right: 8px;
     cursor: pointer;
+    color: var(--text-color);
+    svg {
+        fill: var(--button-bg);
+    }
 }
 
 .video-link {
@@ -194,6 +202,7 @@ $video-info-width: 544px;
 }
 .copy-link-btn {
     white-space: nowrap;
+    color: var(--text-color);
     background: none var(--bg-video-feature);
     padding: 10px 16px;
     cursor: pointer;
@@ -203,8 +212,6 @@ $video-info-width: 544px;
         background-color: var(--link-hover-bg);
     }
 }
-
-
 
 @media screen and (max-width: 950px) {
     .wrapper {

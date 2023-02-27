@@ -40,6 +40,7 @@ $primary-height: 64px;
     justify-content: space-between;
     padding: 4px 16px;
     border-left: 1px solid var(--border-color);
+    color: var(--text-color);
 }
 .left {
     display: flex;
@@ -238,6 +239,7 @@ $primary-height: 64px;
     height: 100%;
     display: flex;
     align-items: center;
+    color: var(--text-color);
     &:hover {
         background-color: var(--hover-bg);
     }
@@ -257,6 +259,7 @@ $primary-height: 64px;
     align-items: center;
     border-bottom: 1px solid var(--border-color);
     padding: 10px 0;
+    color: var(--text-color);
 }
 .label {
     margin-left: 10px;
@@ -275,6 +278,7 @@ $primary-height: 64px;
 .recommended-videos {
     .title {
         margin: 24px 0 16px;
+        color: var(--text-color);
     }
     .video-list {
         display: flex;
@@ -390,6 +394,7 @@ $primary-height: 64px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--text-color);
     .collapse-btn {
         position: absolute;
         left: 16px;
@@ -458,12 +463,14 @@ $message-padding-vertical: 8px;
     padding: 0 10px;
     width: fit-content;
     cursor: pointer;
+    color: var(--text-color);
 }
 
 .messages {
     overflow-y: auto;
     line-height: 2.4rem;
     height: calc(100% - 140px - $message-padding-vertical * 4);
+    color: var(--text-color);
 }
 
 .icon-wrapper {

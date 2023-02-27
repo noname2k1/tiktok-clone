@@ -4,6 +4,7 @@ import React, { forwardRef } from 'react';
 import styles from './CommentInput.module.scss';
 import classNames from 'classnames/bind';
 import { AtIcon, EmojiIcon } from '~/components/icons';
+import Tooltip from '~/components/Tooltip';
 
 const cx = classNames.bind(styles);
 
@@ -21,6 +22,9 @@ const CommentInput = forwardRef(
         },
         ref
     ) => {
+        const TAG_OTHERS = '"@" user to tag them in your comment';
+        const ADD_EMOJIS = 'click to add emojis';
+
         const handleFocusInput = () => {
             ref.current.focus();
         };
@@ -61,14 +65,18 @@ const CommentInput = forwardRef(
                     />
                     <div className={cx('comment-tools')}>
                         {at && (
-                            <div className={cx('comment-tools-item')}>
-                                <AtIcon />
-                            </div>
+                            <Tooltip content={TAG_OTHERS}>
+                                <div className={cx('comment-tools-item')}>
+                                    <AtIcon />
+                                </div>
+                            </Tooltip>
                         )}
                         {emoji && (
-                            <div className={cx('comment-tools-item')}>
-                                <EmojiIcon />
-                            </div>
+                            <Tooltip content={ADD_EMOJIS}>
+                                <div className={cx('comment-tools-item')}>
+                                    <EmojiIcon />
+                                </div>
+                            </Tooltip>
                         )}
                     </div>
                     {value.length > 44 && (

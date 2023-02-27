@@ -5,11 +5,11 @@
     padding: 8px 16px;
     border-radius: 4px;
     cursor: pointer;
-    background-color: var(--bg-color, #fff);
+    background-color: var(--button-bg);
     border: 1px solid transparent;
     user-select: none;
     border-color: transparent;
-    color: var(--text-color, #161823);
+    color: var(--text-color);
     &:hover {
         background-color: #fe2c550f;
     }
@@ -21,7 +21,7 @@
 }
 
 .normal {
-    border-color: rgba(22, 24, 35, 0.12);
+    border-color: var(--border-color, #e4e7eb);
     &:hover {
         background-color: rgba(22, 24, 35, 0.03);
     }
@@ -29,7 +29,7 @@
 
 .primary {
     background-color: var(--primary-color, #fe2c55);
-    color: var(--text-color-secondary, #fff);
+    color: var(--text-color);
     &:hover {
         background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), #fe2c55;
     }

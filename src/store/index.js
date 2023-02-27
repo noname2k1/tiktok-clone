@@ -24,7 +24,7 @@ const reducers = combineReducers({
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['modal', 'globalComponent', 'comment', 'user', 'term'],
+    blacklist: ['modal', 'comment', 'user', 'term'],
 };
 
 // const reducersNotPersist = {

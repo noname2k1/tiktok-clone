@@ -17,6 +17,7 @@
 
 .user-nickname {
     line-height: 30px;
+    color: var(--nickname-color);
 }
 .user-name {
     color: var(--nickname-color);
@@ -159,6 +160,7 @@ $share-video-type-item-width: 230px;
     object-fit: fill;
     border-radius: 4px;
     overflow: hidden;
+    background-color: transparent;
     cursor: pointer;
     @media screen and (min-width: 1300px) {
         width: 15%;

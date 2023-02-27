@@ -8,6 +8,7 @@ const globalComponentSlice = createSlice({
             content: '',
             placement: 'top',
         },
+        darkMode: false,
     },
     reducers: {
         setToast: (state, action) => {
@@ -16,9 +17,12 @@ const globalComponentSlice = createSlice({
                 ...action.payload,
             };
         },
+        setDarkMode: (state, action) => {
+            state.darkMode = action.payload;
+        },
     },
 });
 
 const { actions, reducer } = globalComponentSlice;
-export const { setToast } = actions;
+export const { setToast, setDarkMode } = actions;
 export default reducer;

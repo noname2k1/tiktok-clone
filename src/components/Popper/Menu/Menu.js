@@ -7,12 +7,16 @@ import styles from './Menu.module.scss';
 import MenuItem from './MenuItem';
 import Header from './Header';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { setDarkMode } from '~/store/slices/globalComponentSlice';
 
 const cx = classNames.bind(styles);
 
 const Menu = ({ items = [], hideOnClick = false, children, ...props }) => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+    const { darkMode } = useSelector((state) => state.globalComponent);
     const [history, setHistory] = React.useState([{ data: items }]);
     const currentHistory = history[history.length - 1];
     const renderItems = () => {
@@ -28,7 +32,9 @@ const Menu = ({ items = [], hideOnClick = false, children, ...props }) => {
                         e.preventDefault();
                         navigate(item.to, { state: location.pathname, replace: true });
                     }
-                    // item.onClick && item.onClick();
+                    if (item.target === 'dark-mode') {
+                        dispatch(setDarkMode(!darkMode));
+                    }
                 }}
                 separateTop={item.separateTop}
             />

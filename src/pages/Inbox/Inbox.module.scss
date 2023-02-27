@@ -6,13 +6,16 @@ $sidebar-width: 356px;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: inherit;
 }
 .sidebar {
+    background-color: inherit;
     width: $sidebar-width;
     height: 100%;
     background-color: var(--bg-color);
     box-shadow: 0 2px 8px #0000002e;
     .header {
+        color: var(--text-color);
         font-family: var(--secondary-font);
         display: flex;
         align-items: center;
@@ -31,7 +34,7 @@ $sidebar-width: 356px;
             border-radius: 50%;
             cursor: pointer;
             &.config-btn {
-                background-color: transparent;
+                color: var(--text-color);
             }
         }
     }
@@ -71,7 +74,9 @@ $sidebar-width: 356px;
         }
         .item-info {
             padding-left: 12px;
+            color: var(--text-color);
             .item-name {
+                color: var(--nickname-color);
                 font-size: 1.6rem;
                 line-height: 24px;
                 margin-bottom: 4px;
@@ -104,12 +109,14 @@ $sidebar-width: 356px;
     flex-direction: column;
     justify-content: center;
     .body-header-user-info {
+        background-color: var(--bg-color);
         display: flex;
         align-items: center;
         padding: 16px 0 16px 16px;
         border-bottom: 1px solid var(--border-color);
     }
     .text {
+        color: var(--nickname-color);
         margin-left: 12px;
         .name {
             font-size: 1.8rem;

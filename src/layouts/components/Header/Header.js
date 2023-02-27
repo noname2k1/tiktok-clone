@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import images from '~/assets/images';
 import Button from '~/components/Button';
 import {
+    LOGO,
     MessagesActiveIcon,
     MessagesIcon,
     MoreIcon,
@@ -33,6 +34,8 @@ const Header = ({ full = false }) => {
     const location = useLocation();
 
     const { token, user } = useSelector((state) => state.auth);
+    const { darkMode } = useSelector((state) => state.globalComponent);
+
     const { DEFAULT_MENU_ITEMS, USER_MENU_ITEMS } = useGetMenuContent();
     const { openAuthModal } = useAuthModal();
 
@@ -60,7 +63,7 @@ const Header = ({ full = false }) => {
         <header className={cx('wrapper')}>
             <div className={cx('inner', { full })}>
                 <Link to={routesConfig.home} className={cx('logo')}>
-                    <img src={images.logo} alt='tiktok-logo' />
+                    {darkMode ? <LOGO /> : <img src={images.logo} alt='tiktok-logo' />}
                 </Link>
                 {/* Search start */}
                 <Search />

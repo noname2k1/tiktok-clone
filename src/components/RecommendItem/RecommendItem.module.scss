@@ -24,6 +24,7 @@
     // align-items: center;
 }
 .nickname {
+    color: var(--nickname-color);
     font-family: SofiaPro, Arial, Tahoma, PingFangSC, sans-serif;
     font-weight: 700;
     font-size: 1.8rem;
@@ -40,6 +41,7 @@
 .caption {
     font-size: 1.6rem;
     line-height: 2.2rem;
+    color: var(--description-color);
 }
 
 .music {

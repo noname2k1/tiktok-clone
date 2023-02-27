@@ -202,6 +202,9 @@ $primary-margin: 24px;
 .caption-input {
     width: 100%;
     height: 42px;
+    caret-color: var(--text-color);
+    color: var(--text-color);
+    background-color: var(--bg-color);
     font-weight: 400;
     font-size: 1.6rem;
     line-height: 18px;
@@ -236,9 +239,11 @@ $primary-margin: 24px;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
+    color: var(--text-color);
 }
 
 .after-input-item {
+    color: var(--text-color);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -301,6 +306,7 @@ $primary-margin: 24px;
     }
     label {
         padding-left: 12px;
+        color: var(--text-color);
     }
 }
 
@@ -319,6 +325,8 @@ $primary-margin: 24px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
     input {
+        background-color: var(--bg-color);
+        color: var(--text-color);
         width: 100%;
         height: 42px;
         font-weight: 400;

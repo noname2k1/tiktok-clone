@@ -6,6 +6,7 @@
     height: calc(100vh - var(--default-layout-header-height));
     display: flex;
     justify-content: center;
+    background-color: var(--bg-color);
 }
 .content {
     width: 100%;
@@ -15,4 +16,5 @@
     // align-items: center;
     padding: 16px 24px;
     max-width: var(--default-layout-width, 70vw);
+    background-color: var(--bg-color-secondary);
 }

@@ -4,16 +4,24 @@ import styles from './Footer.module.scss';
 import images from '~/assets/images';
 import footerItems from './footerItems';
 import CustomSelect from '~/components/Custom/CustomSelect';
+import { useSelector } from 'react-redux';
 
 const cx = classNames.bind(styles);
 
 const Footer = () => {
+    const { darkMode } = useSelector((state) => state.globalComponent);
     return (
         <footer className={cx('container')}>
             <div className={cx('above-part')}>
                 <div className={cx('logo')}>
-                    <img src={images.musicNote} alt='music-note' />
-                    <img src={images.logoText} alt='logo-text' />
+                    {darkMode ? (
+                        <img src={images.logo} alt='tiktok-clone-by-ninh-nam' />
+                    ) : (
+                        <>
+                            <img src={images.musicNote} alt='music-note' />
+                            <img src={images.logoText} alt='logo-text' />
+                        </>
+                    )}
                 </div>
                 {footerItems.map((item) => (
                     <div className={cx('footer-content-column')} key={item.id}>

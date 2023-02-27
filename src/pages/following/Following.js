@@ -98,6 +98,7 @@ const Following = () => {
                                 backgroundRepeat: 'no-repeat',
                             }}
                         >
+                            <div className={cx('overlay')}></div>
                             <div className={cx('user-info')}>
                                 <Image src={user.avatar} large rounded />
                                 <div className={cx('name')}>

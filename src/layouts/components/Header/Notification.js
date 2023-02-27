@@ -19,6 +19,7 @@ const NotificationWrapper = styled(Wrapper)`
     }
     .header-title {
         margin-bottom: 8px;
+        color: var(--text-color);
     }
 
     .notifications-type-list {
@@ -28,6 +29,7 @@ const NotificationWrapper = styled(Wrapper)`
         margin-bottom: 8px;
     }
     .notifications-type-item {
+        color: var(--text-color);
         margin-right: 8px;
         cursor: pointer;
         padding: 4px 8px;

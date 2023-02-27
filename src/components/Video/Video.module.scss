@@ -71,11 +71,13 @@ input[type='range'] {
 
 .small {
     .switch-btn {
+        color: #fff;
         left: 0;
         margin-left: 20px;
         margin-right: auto;
     }
     .mute-btn {
+        color: #fff;
         right: 0;
         margin-right: 20px;
     }
@@ -100,6 +102,7 @@ input[type='range'] {
         inset: 0;
         top: 50%;
         left: 50%;
+        color: #fff;
     }
     .mute-btn {
         margin: 0;
@@ -107,6 +110,7 @@ input[type='range'] {
         bottom: 20px;
         display: flex;
         align-items: center;
+        color: #fff;
     }
     .timeline-container {
         display: flex;
@@ -116,13 +120,16 @@ input[type='range'] {
         .timeline {
             flex: 1;
         }
+        .time {
+            color: #fff;
+        }
     }
     .prev-btn,
     .next-btn {
         position: absolute;
         right: 20px;
         z-index: 2;
-        color: var(--bg-color);
+        color: #fff;
         a {
             display: flex;
             align-items: center;
