@@ -25,6 +25,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 20px;
+        color: var(--text-color);
     }
     .modal-header {
         &.border {
@@ -41,7 +42,7 @@
     transition: transform 0.2s ease;
     &:not(.modal-footer) {
         .modal-body {
-            max-height: 80vh;
+            max-height: 87vh;
         }
     }
 }
