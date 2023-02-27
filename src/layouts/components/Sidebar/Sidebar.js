@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Button from '~/components/Button';
 import {
     HomeActiveIcon,
@@ -20,6 +20,7 @@ import Menu, { MenuItem } from './Menu';
 import styles from './Sidebar.module.scss';
 import { useLocation } from 'react-router-dom';
 import { chunkArray } from '~/helpers';
+import { setFollowingUsers as setFollowingUsersSlice } from '~/store/slices/followSlice';
 
 const cx = classNames.bind(styles);
 const INITIAL_PAGE = 1;
@@ -34,6 +35,7 @@ const Sidebar = ({
     following = true,
     discover = true,
 }) => {
+    const dispatch = useDispatch();
     const { pathname } = useLocation();
     const { openAuthModal } = useAuthModal();
     const { token, user } = useSelector((state) => state.auth);
@@ -43,7 +45,6 @@ const Sidebar = ({
     });
     const [perPage, setPerPage] = React.useState({
         suggested: INITIAL_PER_PAGE,
-        following: INITIAL_PER_PAGE,
     });
     const [isSeeAll, setIsSeeAll] = React.useState({
         suggested: false,
@@ -121,13 +122,17 @@ const Sidebar = ({
         } else {
             const getFollowingUsers = () => {
                 followService
-                    .getFollowingUsers(page.following, perPage.following)
+                    .getFollowingUsers(page.following)
                     .then((users) => {
-                        // console.log(users);
-                        if (page.following === INITIAL_PAGE) {
+                        if (users && page.following === INITIAL_PAGE) {
+                            // console.log(users);
                             setFollowingUsers(users);
+                            dispatch(setFollowingUsersSlice(users));
                         } else {
                             setFollowingUsers((prevUsers) => [...prevUsers, ...users]);
+                            dispatch(
+                                setFollowingUsersSlice([...followingUsersFromStore, ...users])
+                            );
                         }
                     })
                     .catch((error) => console.log(error));
@@ -135,7 +140,7 @@ const Sidebar = ({
             getFollowingUsers();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [page.following, perPage.following]);
+    }, [page.following]);
 
     React.useEffect(() => {
         if (followingArrays.length > 0) {
@@ -157,6 +162,8 @@ const Sidebar = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [followingUsersFromStore]);
+
+    // console.log('followingUsers', followingUsers);
 
     const handleViewChangeSuggestedUsers = () => {
         setIsSeeAll((prev) => {
@@ -291,6 +298,7 @@ const Sidebar = ({
                         isSeeAll={isSeeAll.following}
                     />
                 )}
+            {/* host suggest */}
             {pathname.indexOf('/live') !== -1 && (
                 <SuggestedAccounts
                     label={SUGGESTED_HOST}

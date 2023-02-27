@@ -54,55 +54,65 @@ const Inbox = () => {
                     </button>
                 </header>
                 <ul className={cx('user-list')}>
-                    {followingUsers.map((user, index) => (
-                        <li
-                            className={cx('user-item', {
-                                active: index === currentIndex,
-                            })}
-                            onClick={() => handleUserClick(index)}
-                            key={user.id}
-                        >
-                            <Image src={user.avatar} alt='tiktok-clone-by-ninh-nam' large rounded />
-                            <div className={cx('item-info')}>
-                                <h4 className={cx('item-name')}>
-                                    {user.first_name || user.last_name
-                                        ? `${user.first_name} ${user.last_name}`
-                                        : user.nickname}
-                                </h4>
-                                <p className={cx('item-last-message')}>lasted message</p>
-                                <span className={cx('time')}>
-                                    <Moment fromNow>{user.created_at}</Moment>
-                                    {' - '}
-                                    <Moment format='DD/MM/yyyy HH:mm'>{user.created_at}</Moment>
-                                </span>
-                            </div>
-                            <button className={cx('more-btn')}>
-                                <MoreIcon width='30' height='30' />
-                            </button>
-                        </li>
-                    ))}
+                    {followingUsers &&
+                        followingUsers.map((user, index) => (
+                            <li
+                                className={cx('user-item', {
+                                    active: index === currentIndex,
+                                })}
+                                onClick={() => handleUserClick(index)}
+                                key={user.id}
+                            >
+                                <Image
+                                    src={user.avatar}
+                                    alt='tiktok-clone-by-ninh-nam'
+                                    large
+                                    rounded
+                                />
+                                <div className={cx('item-info')}>
+                                    <h4 className={cx('item-name')}>
+                                        {user.first_name || user.last_name
+                                            ? `${user.first_name} ${user.last_name}`
+                                            : user.nickname}
+                                    </h4>
+                                    <p className={cx('item-last-message')}>lasted message</p>
+                                    <span className={cx('time')}>
+                                        <Moment fromNow>{user.created_at}</Moment>
+                                        {' - '}
+                                        <Moment format='DD/MM/yyyy HH:mm'>{user.created_at}</Moment>
+                                    </span>
+                                </div>
+                                <button className={cx('more-btn')}>
+                                    <MoreIcon width='30' height='30' />
+                                </button>
+                            </li>
+                        ))}
                 </ul>
             </aside>
             <main className={cx('body')}>
                 <header className='body-header'>
                     <div className={cx('body-header-user-info')}>
-                        <Image
-                            src={followingUsers[currentIndex].avatar}
-                            alt='tiktok-clone-by-ninh-nam'
-                            large
-                            rounded
-                        />
-                        <div className={cx('text')}>
-                            <h4 className={cx('name')}>
-                                {followingUsers[currentIndex].first_name ||
-                                followingUsers[currentIndex].last_name
-                                    ? `${followingUsers[currentIndex].first_name} ${followingUsers[currentIndex].last_name}`
-                                    : ''}
-                            </h4>
-                            <h3 className={cx('nickname')}>
-                                @{followingUsers[currentIndex].nickname}
-                            </h3>
-                        </div>
+                        {followingUsers[currentIndex] && (
+                            <>
+                                <Image
+                                    src={followingUsers[currentIndex]?.avatar}
+                                    alt='tiktok-clone-by-ninh-nam'
+                                    large
+                                    rounded
+                                />
+                                <div className={cx('text')}>
+                                    <h4 className={cx('name')}>
+                                        {followingUsers[currentIndex]?.first_name ||
+                                        followingUsers[currentIndex]?.last_name
+                                            ? `${followingUsers[currentIndex]?.first_name} ${followingUsers[currentIndex]?.last_name}`
+                                            : ''}
+                                    </h4>
+                                    <h3 className={cx('nickname')}>
+                                        @{followingUsers[currentIndex]?.nickname}
+                                    </h3>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </header>
                 <ul className={cx('message-list')}></ul>

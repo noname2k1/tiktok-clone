@@ -9,7 +9,7 @@ import Inbox from '~/pages/Inbox';
 import DiscoverLive from '~/components/DiscoverLive';
 //Public routes
 const publicRoutes = [
-    { id: uuid(), path: config.routes.following, component: Following },
+    { id: uuid(), path: config.routes.following, component: Following, layout: FullLayout },
     { id: uuid(), path: config.routes.live, component: Live, layout: FullLayout },
     {
         id: uuid(),

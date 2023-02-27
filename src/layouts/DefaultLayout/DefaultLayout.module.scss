@@ -8,7 +8,7 @@
 .container {
     padding: 0 var(--default-layout-spacer);
     min-height: 1000px;
-    width: var(--default-layout-width, 1150px);
+    min-width: var(--default-layout-width, 70vw);
     max-width: 100%;
     display: flex;
     margin-top: var(--default-layout-header-height);
@@ -20,5 +20,5 @@
 .content {
     flex: 1;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }

@@ -5,6 +5,7 @@ import { LoadingEffect } from '~/components/effects';
 import config from '~/config';
 import { logout } from '~/store/slices/authSlice';
 import styled from 'styled-components';
+import { setFollowingUsers } from '~/store/slices/followSlice';
 
 const Wrapper = styled.div`
     display: flex;
@@ -20,6 +21,7 @@ const Logout = () => {
     // console.log('location', location);
     React.useEffect(() => {
         dispatch(logout());
+        dispatch(setFollowingUsers([]));
         setTimeout(() => {
             localStorage.removeItem('persist:root');
             navigate(location.state || config.routes.home);

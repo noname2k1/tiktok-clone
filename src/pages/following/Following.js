@@ -12,6 +12,7 @@ import Image from '~/components/Image';
 import { CheckIcon } from '~/components/icons';
 import { useFollow } from '~/hooks';
 import { Link } from 'react-router-dom';
+import GotoTop from '~/components/GotoTop';
 
 const cx = classNames.bind(styles);
 
@@ -21,7 +22,7 @@ const Following = () => {
     const FOLLOWING = 'Following';
 
     const dispatch = useDispatch();
-    const { token, user } = useSelector((state) => state.auth);
+    const { token } = useSelector((state) => state.auth);
     const { followingUsers } = useSelector((state) => state.follow);
     const [suggestedUsers, setSuggestedUsers] = React.useState([]);
     const { videos } = useSelector((state) => state.video);
@@ -64,7 +65,7 @@ const Following = () => {
                 .finally(() => setLoading(false));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [followingUsers]);
+    }, [followingUsers, videos]);
 
     const handleFollow = (event, userID) => {
         event.stopPropagation();
@@ -78,13 +79,12 @@ const Following = () => {
         <div className={cx('wrapper')}>
             {!loading &&
                 token &&
-                Object.keys(user).length > 0 &&
-                suggestedUsers?.length === 0 &&
+                followingUsers.length > 0 &&
                 videos &&
                 videos.map((video) => <RecommendItem key={video.id} data={video} />)}
             <div className={cx('suggested-list')}>
                 {!loading &&
-                    !token &&
+                    (!token || followingUsers.length === 0) &&
                     suggestedUsers &&
                     suggestedUsers.map((user) => (
                         <Link
@@ -112,7 +112,7 @@ const Following = () => {
                                     primary={
                                         followingUsers.find(
                                             (followingUser) => followingUser.id === user.id
-                                        )
+                                        ) && token
                                             ? false
                                             : true
                                     }
@@ -121,7 +121,7 @@ const Following = () => {
                                 >
                                     {followingUsers.find(
                                         (followingUser) => followingUser.id === user.id
-                                    )
+                                    ) && token
                                         ? FOLLOWING
                                         : FOLLOW}
                                 </Button>
@@ -130,6 +130,7 @@ const Following = () => {
                     ))}
             </div>
             {loading && <LoadingEffect />}
+            <GotoTop />
         </div>
     );
 };

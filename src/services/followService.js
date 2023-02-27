@@ -1,16 +1,16 @@
 import * as httpRequest from '~/utils/httpRequest';
 
-const getFollowingUsers = async (page = 1, perPage = 5) => {
+const getFollowingUsers = async (page = 1) => {
     try {
         const res = await httpRequest.get('me/followings', {
             params: {
                 page,
-                per_page: perPage,
             },
         });
         return res.data;
     } catch (error) {
         console.log(error);
+        throw error;
     }
 };
 
@@ -19,7 +19,7 @@ const follow = async (userID) => {
         const res = await httpRequest.post(`users/${userID}/follow`);
         return res.data;
     } catch (error) {
-        return error;
+        throw error;
     }
 };
 
@@ -28,7 +28,7 @@ const unfollow = async (userID) => {
         const res = await httpRequest.post(`users/${userID}/unfollow`);
         return res.data;
     } catch (error) {
-        return error;
+        throw error;
     }
 };
 

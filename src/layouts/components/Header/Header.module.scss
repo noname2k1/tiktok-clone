@@ -14,7 +14,7 @@
 
 .inner {
     height: 100%;
-    max-width: var(--default-layout-width, 1150px);
+    max-width: var(--default-layout-width);
     display: flex;
     align-items: center;
     padding: 0 var(--default-layout-spacer);
@@ -23,6 +23,10 @@
     &.full {
         margin: 0;
         max-width: 100%;
+    }
+    @media screen and (max-width: 990px) {
+        max-width: unset;
+        padding: 0 14px 0 24px;
     }
 }
 

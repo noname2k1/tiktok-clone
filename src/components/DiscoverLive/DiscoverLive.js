@@ -144,7 +144,7 @@ const DiscoverLive = () => {
                 videoService
                     .getAllVideosOfUser(user.id)
                     .then((videos) => {
-                        setVideo(videos[0]);
+                        setVideo(videos[videos.length - 1]);
                     })
                     .catch((err) => {
                         console.log(err);

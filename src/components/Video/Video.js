@@ -111,6 +111,8 @@ const Video = React.forwardRef(
             play: () => {
                 videoRef.current.play();
                 setIsPlaying(true);
+                setVolume(0.5);
+                setIsMuted(false);
             },
             pause: () => {
                 videoRef.current.pause();
