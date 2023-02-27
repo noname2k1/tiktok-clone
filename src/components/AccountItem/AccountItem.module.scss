@@ -26,6 +26,7 @@
     white-space: nowrap;
     display: flex;
     align-items: center;
+    color: var(--nickname-color);
     span {
         margin-right: 6px;
     }
@@ -37,7 +38,7 @@
 .username {
     font-size: 14px;
     line-height: 20px;
-    color: rgba(22, 24, 35, 0.5);
+    color: var(--nickname-color);
     font-weight: 400;
     overflow: hidden;
     text-overflow: ellipsis;
