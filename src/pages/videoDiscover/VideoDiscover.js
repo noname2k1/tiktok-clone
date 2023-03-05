@@ -232,7 +232,7 @@ const VideoDiscover = () => {
                                 {`${currentVideo.user?.first_name} ${currentVideo.user?.last_name}`}
                                 {' · '}
                                 <span className={cx('created-at')}>
-                                    <Moment fromNow>{currentVideo.created_at}</Moment>
+                                    <Moment fromNow>{currentVideo?.created_at}</Moment>
                                 </span>
                             </p>
                         </div>
